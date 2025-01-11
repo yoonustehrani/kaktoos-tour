@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum TourRoomType: int
+enum TourRoomTypes: int
 {
     case Single = 1;
     case Double = 2;
