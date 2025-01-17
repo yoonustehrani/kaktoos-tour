@@ -2,6 +2,8 @@
 
 define('SPACE', ' ');
 
-function slugify(string $string): string {
-    return str_replace(SPACE, '-', $string);
+if (! function_exists('slugify')) {
+    function slugify(string $string): string {
+        return str_replace(SPACE, '-', $string);
+    }
 }
