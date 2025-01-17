@@ -32,4 +32,6 @@ class Country extends Model
     protected $keyType = 'string';
 
     public $timestamps = false;
+
+    protected $fillable = ['code', 'name', 'name_fa'];
 }

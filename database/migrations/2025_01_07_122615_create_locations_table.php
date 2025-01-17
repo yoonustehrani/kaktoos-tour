@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_fa');
             $table->boolean('is_origin');
             $table->char('country_code', 2);
             $table->foreign('country_code')->references('code')->on('countries');

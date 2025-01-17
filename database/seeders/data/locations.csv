@@ -1,0 +1,10 @@
+country_code,name,name_fa,is_origin
+IR,Mashhad,"مشهد",true
+IR,Tehran,"تهران",true
+DE,Cologne,"کلن",false
+DE,Berlin,"برلین",false
+DE,Hamburg,"هامبورگ",false
+FR,Paris,"پاریس",false
+FR,Nice,"نیس",false
+TH,‌‌Bangkok,"بانکوک",false
+TH,Phuket,"پوکت",false

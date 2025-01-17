@@ -16,8 +16,12 @@ class TourFactory extends Factory
      */
     public function definition(): array
     {
+        $title = 'تور' . " " . fake()->country();
         return [
-            //
+            'title' => $title,
+            'slug' => str_ireplace(' ', '-', $title),
+            'active' => true,
+            'number_of_nights' => rand(3, 9)
         ];
     }
 }
