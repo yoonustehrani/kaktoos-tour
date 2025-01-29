@@ -10,4 +10,16 @@ class Tour extends Model
 {
     /** @use HasFactory<\Database\Factories\TourFactory> */
     use HasFactory, HasUlids;
+
+    protected $fillable = ['title', 'slug', 'origin_id', 'number_of_nights'];
+
+    public function destinations()
+    {
+        return $this->hasMany(TourDestination::class);
+    }
+
+    public function dates()
+    {
+        return $this->hasMany(TourDate::class);
+    }
 }

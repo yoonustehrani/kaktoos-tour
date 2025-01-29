@@ -9,12 +9,9 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"austenc.laravel-blade-spacer",
-				"amiralizadeh9480.laravel-extra-intellisense",
+				"bmewburn.vscode-intelephense-client",
 				"codingyu.laravel-goto-view",
-				"onecentlin.laravel-blade",
-				"onecentlin.laravel5-snippets",
-				"bmewburn.vscode-intelephense-client"
+				"amiralizadeh9480.laravel-extra-intellisense"
 			],
 			"settings": {}
 		}

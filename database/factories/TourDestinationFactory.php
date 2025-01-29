@@ -17,7 +17,8 @@ class TourDestinationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'requires_visa' => true,
+            'visa_preparation_days' => fake()->numberBetween(1, 7)
         ];
     }
 }

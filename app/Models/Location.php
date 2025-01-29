@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Exceptions\CountryCodeErrorException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Location extends Model
 {
@@ -15,5 +17,23 @@ class Location extends Model
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_code');
+    }
+
+    public function scopeOrigin(Builder $query)
+    {
+        $query->whereIsOrigin(true);
+    }
+
+    public function scopeNotOrigin(Builder $query)
+    {
+        $query->whereIsOrigin(false);
+    }
+
+    public function scopeFrom(Builder $query, string $countryCode)
+    {
+        if (! preg_match('/^[A-Z]{2}$/', $countryCode)) {
+            throw new CountryCodeErrorException($countryCode);
+        }
+        $query->whereCountryCode(strtoupper($countryCode));
     }
 }
