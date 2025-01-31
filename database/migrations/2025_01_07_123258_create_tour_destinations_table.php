@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('tour_destinations', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Location::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignUlid('tour_id')->constrained('tours')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(Location::class)->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUlid('tour_id')->index()->constrained('tours')->cascadeOnDelete()->cascadeOnUpdate();
             $table->smallInteger('number_of_nights')->unsigned();
             $table->boolean('requires_visa');
             $table->smallInteger('visa_preparation_days')->unsigned()->nullable();

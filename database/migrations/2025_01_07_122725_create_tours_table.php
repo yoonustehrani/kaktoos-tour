@@ -16,7 +16,7 @@ return new class extends Migration
             $table->ulid('id')->unique()->primary();
             $table->string('title');
             $table->string('slug');
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->default(true)->index();
             $table->foreignIdFor(Location::class, 'origin_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->smallInteger('number_of_nights')->unsigned()->nullable();
             $table->timestamps();

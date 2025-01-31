@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CountrySeeder::class);
         $this->call(LocationSeeder::class);
+        $this->call(TourSeeder::class);
     }
 }

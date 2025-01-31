@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,11 +17,17 @@ class TourFactory extends Factory
      */
     public function definition(): array
     {
-        $title = 'تور' . " " . fake()->words(2, true);
         return [
-            'title' => $title,
-            'slug' => str_ireplace(' ', '-', $title),
             'active' => true,
         ];
+    }
+
+    public function country(string $code)
+    {
+        $title = 'تور' . " " . Country::whereCode($code)->first()->name_fa;
+        return $this->state([
+            'title' => $title,
+            'slug' => str_ireplace(' ', '-', $title)
+        ]);
     }
 }

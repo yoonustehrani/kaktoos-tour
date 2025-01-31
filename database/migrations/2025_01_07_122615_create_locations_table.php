@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('name_fa');
             $table->boolean('is_origin');
-            $table->char('country_code', 2);
+            $table->char('country_code', 2)->index();
             $table->foreign('country_code')->references('code')->on('countries');
         });
     }
