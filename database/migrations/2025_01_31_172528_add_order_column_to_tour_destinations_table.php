@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tour_dates', function (Blueprint $table) {
-            $table->id();
-            $table->foreignUlid('tour_id')->index()->constrained('tours')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('start_date')->index();
-            $table->date('end_date')->index();
+        Schema::table('tour_destinations', function (Blueprint $table) {
+            $table->unsignedSmallInteger('order');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tour_dates');
+        Schema::table('tour_destinations', function (Blueprint $table) {
+            $table->dropColumn(['order']);
+        });
     }
 };

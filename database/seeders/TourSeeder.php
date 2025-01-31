@@ -41,7 +41,8 @@ class TourSeeder extends Seeder
                         }
                         return [
                             'location_id' => $locations->pluck('id')->toArray()[$sequence->index],
-                            'number_of_nights' => intval($d - 1)
+                            'number_of_nights' => intval($d - 1),
+                            'order' => $sequence->index
                         ];
                     })
                 ),

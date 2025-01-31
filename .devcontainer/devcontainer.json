@@ -11,7 +11,10 @@
 			"extensions": [
 				"bmewburn.vscode-intelephense-client",
 				"codingyu.laravel-goto-view",
-				"amiralizadeh9480.laravel-extra-intellisense"
+				"amiralizadeh9480.laravel-extra-intellisense",
+				"onecentlin.laravel-blade",
+				"austenc.laravel-blade-spacer",
+				"bradlc.vscode-tailwindcss"
 			],
 			"settings": {}
 		}
