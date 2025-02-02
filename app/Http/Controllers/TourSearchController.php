@@ -31,12 +31,10 @@ class TourSearchController extends Controller
 
         switch ($orderBy) {
             case TourSearchOrder::BY_START_DATE:
-                $column_select = 'MIN(dates.start_date)';
-                $column_name = 'earliest_start_date';
-                $query->addSelect(DB::raw("{$column_select} as {$column_name}"))->orderBy($column_name, $sort);
+                $query->orderBy('earliest_start_date', $sort);
                 break;
             case TourSearchOrder::BY_PRICE:
-                // TODO
+                $query->orderBy('min_adult_price', $sort);
                 break;
             case TourSearchOrder::BY_HOTEL_STARS:
                 // TODO
@@ -45,13 +43,34 @@ class TourSearchController extends Controller
                 // TODO
                 break;
         }
-        
         // return $query->get();
-        return $query->with([
+        
+        $aggregate = DB::table(DB::raw("({$query->toSql()}) as aggregate_table"))
+            ->mergeBindings($query->getQuery());
+        // return [
+        //     'max' => $aggregate->max('min_adult_price'),
+        //     'min' => $aggregate->min('min_adult_price'),
+        //     'tours' => $query->paginate(10)
+        // ];
+        $tours = $query->with([
             'origin',
             'destinations' => fn(HasMany $relation) => $relation->orderBy('order')->with('location'),
-            'dates' => fn(HasMany $relation) => $relation->orderBy('start_date')->onlyUpcoming()
-        ])->simplePaginate(10);
+            'dates' => function(HasMany $relation) { 
+                $relation->onlyUpcoming()->join('pricing_list_tour_date as ptd', 'tour_dates.id', '=', 'ptd.tour_date_id')
+                    ->join('pricing_lists as pl', 'ptd.pricing_list_id', '=', 'pl.id')
+                    ->orderBy('start_date')
+                    ->select('tour_dates.*', 'pl.min_adult_price');
+            }
+        ]);
+        return [
+            'meta' => [
+                'price' => [
+                    'max' => $aggregate->max('min_adult_price_max'),
+                    'min' => $aggregate->min('min_adult_price'),
+                ]
+            ],
+            'results' => $tours->simplePaginate($request->per_page),
+        ];
     }
 
     public function applyFiltersToQuery(Builder &$query, Request &$request, bool $requires_dates_join)
@@ -67,12 +86,16 @@ class TourSearchController extends Controller
         ) {
             $query->join('tour_dates as dates', function(JoinClause $join) use($request) {
                 $join->on('tours.id', '=', 'dates.tour_id');
+                // excludes tours without price
+                $join->join('pricing_list_tour_date as ptd', 'dates.id', '=', 'ptd.tour_date_id')
+                    ->join('pricing_lists as pl', 'ptd.pricing_list_id', '=', 'pl.id');
+                
                 if (! ($request->has('start_date') || $request->has('end_date'))) 
                     return;
                 switch (true) {
                     case $request->has('start_date') && $request->has('end_date'):
-                        $join->whereBetween('td.start_date', [$request->start_date, $request->end_date])
-                        ->whereBetween('td.end_date', [$request->start_date, $request->end_date]);
+                        $join->whereBetween('dates.start_date', [$request->start_date, $request->end_date])
+                            ->whereBetween('dates.end_date', [$request->start_date, $request->end_date]);
                         break;
                     case $request->has('start_date'):
                         $join->where('dates.start_date', '>=', $request->start_date);
@@ -82,7 +105,9 @@ class TourSearchController extends Controller
                         break;
                 }
             });
-
+            $query->addSelect(DB::raw("MIN(dates.start_date) as earliest_start_date"));
+            $query->addSelect(DB::raw("MIN(pl.min_adult_price) as min_adult_price"));
+            $query->addSelect(DB::raw("MAX(pl.min_adult_price) as min_adult_price_max"));
             $query->groupBy('tours.id')
                 ->distinct();
         }

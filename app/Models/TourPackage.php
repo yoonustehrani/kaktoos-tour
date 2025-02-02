@@ -11,4 +11,9 @@ class TourPackage extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    // public function pricing_list()
+    // {
+    //     return $this->hasOne(PricingList::class);
+    // }
 }

@@ -29,6 +29,16 @@ class Tour extends Model
         return $this->hasMany(TourDate::class);
     }
 
+    public function pricing_lists()
+    {
+        return $this->hasMany(PricingList::class);
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(TourPackage::class);
+    }
+
     public function scopeOnlyActive(Builder $query)
     {
         $query->whereActive(true);

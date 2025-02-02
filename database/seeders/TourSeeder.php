@@ -2,11 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Currencies;
+use App\Enums\TourRoomTypes;
+use App\Events\PricingListUpdated;
 use App\Models\Location;
+use App\Models\Pricing;
+use App\Models\PricingList;
 use App\Models\Tour;
 use App\Models\TourDate;
 use App\Models\TourDestination;
-use DateInterval;
+use App\Models\TourPackage;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -24,11 +29,11 @@ class TourSeeder extends Seeder
             $date = fake()->dateTimeBetween('+2 days', '+30 days')->format('Y-m-d');
             $days = random_int(4, 11);
             $locations =  Location::notOrigin()->from($country)->inRandomOrder()->select('id')->limit(3)->get();
-            Tour::factory(count: 1, state: [
+            $tour = Tour::factory(count: 1, state: [
                 'origin_id' => Location::whereIsOrigin(true)->first(),
                 'number_of_nights' => $days - 1,
             ])->country($country)->has(
-                factory: TourDate::factory()->count(3)->state(new Sequence(fn (Sequence $sequence) => [
+                factory: TourDate::factory()->count(2)->state(new Sequence(fn (Sequence $sequence) => [
                     'start_date' => Carbon::createFromFormat('Y-m-d', $date)->addDays($sequence->index)->format('Y-m-d')
                 ]))->days($days),
                 relationship: 'dates'
@@ -47,7 +52,29 @@ class TourSeeder extends Seeder
                     })
                 ),
                 relationship: 'destinations'
-            )->create();
+            )->has(
+                factory: TourPackage::factory(),
+                relationship: 'packages'
+            )->create()->first();
+            $package = $tour->packages()->first();
+
+            foreach ($tour->dates()->get() as $date) {
+                $list = new PricingList();
+                $list->package()->associate($package);
+                $tour->pricing_lists()->save($list);
+
+                $pricings = collect([]);
+                $room_types = [TourRoomTypes::Single, TourRoomTypes::Double]; // , TourRoomTypes::ChildWithoutBed, TourRoomTypes::ChildWithBed, TourRoomTypes::Infant
+                foreach ($room_types as $room_type) {
+                    Pricing::factory(2, state: ['room_type' => $room_type])->state(new Sequence(
+                        ['currency' => Currencies::IRT, 'price' => random_price(Currencies::IRT)],
+                        ['currency' => Currencies::USD, 'price' => random_price(Currencies::USD)],
+                    ))->make()->each(fn($item) => $pricings->push($item));
+                }
+                $list->pricings()->saveMany($pricings);
+                $list->dates()->sync($date->id);
+                PricingListUpdated::dispatch($list);
+            }
         }
     }
 }

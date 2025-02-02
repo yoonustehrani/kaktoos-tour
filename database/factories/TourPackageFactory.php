@@ -17,7 +17,7 @@ class TourPackageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->colorName(),
         ];
     }
 }
