@@ -22,7 +22,7 @@ class Pricing extends Model
     protected function casts(): array
     {
         return [
-            'currency_code' => Currencies::class,
+            'currency' => Currencies::class,
             'room_type' => TourRoomTypes::class
         ];
     }

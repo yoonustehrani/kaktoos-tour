@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(PricingList::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->bigInteger('price')->unsigned();
-            $table->char('currency_code', 3);
+            $table->char('currency', 3);
             $table->smallInteger('room_type')->unsigned();
         });
     }
