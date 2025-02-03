@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\TourSearchOrder;
 use App\Http\Requests\TourSearchRequest;
+use App\Models\Country;
+use App\Models\Location;
 use App\Models\Tour;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -47,14 +49,22 @@ class TourSearchController extends Controller
                 break;
         }
         // return $query->get();
-        
-        $aggregate = DB::table(DB::raw("({$query->toSql()}) as aggregate_table"))
-            ->mergeBindings($query->getQuery());
         // return [
         //     'max' => $aggregate->max('min_adult_price'),
         //     'min' => $aggregate->min('min_adult_price'),
         //     'tours' => $query->paginate(10)
         // ];
+
+        // $countries_and_locations = aggregated_query($query)->select(
+        //     DB::raw('ARRAY_AGG(DISTINCT locations.id) as location_ids'),
+        //     DB::raw('ARRAY_AGG(DISTINCT locations.country_code) as country_codes')
+        // )
+        // ->leftJoin('tour_destinations', 'aggregate_table.id', '=', 'tour_destinations.tour_id')
+        // ->leftJoin('locations', 'tour_destinations.location_id', '=', 'locations.id')
+        // ->first();
+        // $countries = Country::whereIn('code', array_values(array_unique(explode(',', trim($countries_and_locations->country_codes, '{}')))))->limit(10)->get();
+        // $locations = Location::whereIn('id', array_values(array_unique(explode(',', trim($countries_and_locations->location_ids, '{}')))))->limit(10)->get();
+        
         $tours = $query->with([
             // 'origin',
             // 'destinations' => fn(HasMany $relation) => $relation->orderBy('order')->with('location'),
@@ -66,12 +76,13 @@ class TourSearchController extends Controller
             }
         ]);
         return [
-            'meta' => [
+            'meta' => array_merge([
                 'price' => [
-                    'max' => $aggregate->max('min_adult_price_max'),
-                    'min' => $aggregate->min('min_adult_price'),
-                ]
-            ],
+                    'max' => aggregated_query($query)->max('min_adult_price_max'),
+                    'min' => aggregated_query($query)->min('min_adult_price'),
+                ],
+                
+            ]), // , compact('locations', 'countries')
             'results' => $tours->simplePaginate($request->per_page),
         ];
     }

@@ -1,6 +1,9 @@
 <?php
 
 use App\Enums\Currencies;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 define('SPACE', ' ');
 define('COUNTRY_CODE_REGEX', '/^[A-Z]{2}$/');
@@ -31,5 +34,21 @@ if (! function_exists('convert_to_toman')) {
             Currencies::IRR => 10,
         };
         return $amount * $exchange_rate;
+    }
+}
+
+if (! function_exists('clone_query')) {
+    function clone_query(Builder|QueryBuilder $builder): Builder|QueryBuilder
+    {
+        return clone $builder;
+    }
+}
+
+if (! function_exists('aggregated_query')) {
+    function aggregated_query(Builder|QueryBuilder $builder): QueryBuilder
+    {
+        $query = clone_query($builder);
+        return DB::table(DB::raw("({$query->toSql()}) as aggregate_table"))
+            ->mergeBindings($query->getQuery());
     }
 }
