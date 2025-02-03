@@ -29,7 +29,7 @@ class TourSearchController extends Controller
         $orderBy = TourSearchOrder::tryFrom($request->order_by) ?? TourSearchOrder::BY_START_DATE;
         $sort = $request->sort ?: 'asc';
 
-        $this->applyFiltersToQuery($query, $request, requires_dates_join: $orderBy == TourSearchOrder::BY_START_DATE);
+        $this->applyFiltersToQuery($query, $request, requires_dates_join: true);
 
         switch ($orderBy) {
             case TourSearchOrder::BY_START_DATE:
@@ -50,8 +50,7 @@ class TourSearchController extends Controller
         }
 
         $tours = $query->with([
-            // 'origin',
-            // 'destinations' => fn(HasMany $relation) => $relation->orderBy('order')->with('location'),
+            'origin',
             'dates' => function(HasMany $relation) use($request) { 
                 $relation->onlyUpcoming()->join('pricing_list_tour_date as ptd', 'tour_dates.id', '=', 'ptd.tour_date_id')
                     ->join('pricing_lists as pl', 'ptd.pricing_list_id', '=', 'pl.id')
@@ -67,7 +66,7 @@ class TourSearchController extends Controller
         ]);
 
         return [
-            'meta' => $this->getMeta($query, $request), // , compact('locations', 'countries')
+            'meta' => $this->getMeta($query, $request),
             'results' => $tours->simplePaginate($request->per_page),
         ];
     }
@@ -141,13 +140,6 @@ class TourSearchController extends Controller
             $query->whereHas('destinations.location', function(Builder $query) use($request) {
                 $query->whereIn('country_code', $request->countries);
             });
-            // $query->join('tour_destinations as tdest', function(JoinClause $join) use($request) {
-            //     $join->on('tours.id', '=', 'tdest.tour_id')
-            //         ->join('locations as l', function(JoinClause $xjoin) use($request) {
-            //             $xjoin->on('tdest.location_id', '=', 'l.id')
-            //                 ->whereIn('l.country_code', $request->countries);
-            //         });
-            // });
         }
 
         if ($request->has('term')) {
@@ -204,8 +196,8 @@ class TourSearchController extends Controller
         )->first();
 
         return array_merge([
-            // 'destinations' => $destinations_with_count,
-            // 'countries' => $countries_with_count
+            'destinations' => $destinations_with_count,
+            'countries' => $countries_with_count
         ], compact('price', 'origins', 'number_of_nights'));
     }
 }
