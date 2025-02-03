@@ -34,7 +34,8 @@ class TourSearchRequest extends FormRequest
             'end_date' => ['date', 'after:start_date', Rule::date()->format('Y-m-d')],
             'per_page' => ['required', 'integer', Rule::in([10, 20, 50])],
             'order_by' => ['string', Rule::enum(TourSearchOrder::class)],
-            'sort' => ['string', Rule::in('asc', 'desc')]
+            'sort' => ['string', Rule::in('asc', 'desc')],
+            'term' => ['string', 'min:3', 'max:30']
         ];
     }
 }

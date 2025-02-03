@@ -8,4 +8,5 @@ enum TourSearchOrder: string
     case BY_PRICE = 'price';
     case BY_HOTEL_STARS = 'hotel_stars';
     case BY_HOTEL_RATES = 'hotel_rates';
+    case BY_NIGHTS = 'nights';
 }

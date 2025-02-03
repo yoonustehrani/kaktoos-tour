@@ -36,6 +36,9 @@ class TourSearchController extends Controller
             case TourSearchOrder::BY_PRICE:
                 $query->orderBy('min_adult_price', $sort);
                 break;
+            case TourSearchOrder::BY_NIGHTS:
+                $query->orderBy('number_of_nights', $sort);
+                break;
             case TourSearchOrder::BY_HOTEL_STARS:
                 // TODO
                 break;
@@ -144,6 +147,10 @@ class TourSearchController extends Controller
             //                 ->whereIn('l.country_code', $request->countries);
             //         });
             // });
+        }
+
+        if ($request->has('term')) {
+            $query->whereLike('title', '%' . $request->term .  '%');
         }
     }
 }
