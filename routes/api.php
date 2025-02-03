@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CountrySearchController;
+use App\Http\Controllers\DestinationSearchController;
 use App\Http\Controllers\OriginSearchController;
 use App\Http\Controllers\TourSearchController;
 use App\Models\Country;
@@ -14,9 +15,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('countries/search', CountrySearchController::class);
 
-Route::get('/countries/{countryCode}/locations', function(string $countryCode) {
-    return Location::from($countryCode)->get();
-})->where('countryCode', '[A-Z]{2}');
+Route::get('locations/destination/search', DestinationSearchController::class);
 
 Route::get('locations/origin/search', OriginSearchController::class);
 

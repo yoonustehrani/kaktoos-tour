@@ -34,7 +34,12 @@ class Location extends Model
         return $this->hasMany(Tour::class, 'origin_id')->active();
     }
 
-    public function toursTo()
+    public function destinations()
+    {
+        return $this->hasMany(TourDestination::class);
+    }
+
+    public function tours()
     {
         return $this->belongsToMany(Tour::class, 'tour_destinations');
     }
