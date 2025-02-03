@@ -53,13 +53,13 @@ class TourSearchController extends Controller
         //     'tours' => $query->paginate(10)
         // ];
         $tours = $query->with([
-            'origin',
-            'destinations' => fn(HasMany $relation) => $relation->orderBy('order')->with('location'),
+            // 'origin',
+            // 'destinations' => fn(HasMany $relation) => $relation->orderBy('order')->with('location'),
             'dates' => function(HasMany $relation) { 
                 $relation->onlyUpcoming()->join('pricing_list_tour_date as ptd', 'tour_dates.id', '=', 'ptd.tour_date_id')
                     ->join('pricing_lists as pl', 'ptd.pricing_list_id', '=', 'pl.id')
                     ->orderBy('start_date')
-                    ->select('tour_dates.*', 'pl.min_adult_price');
+                    ->select('tour_dates.*', 'pl.min_adult_price', 'pl.min_adult_price_display');
             }
         ]);
         return [

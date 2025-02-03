@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('pricing_lists', function (Blueprint $table) {
             $table->bigInteger('min_adult_price')->unsigned()->nullable()->default(null)->before('created_at');
+            $table->string('min_adult_price_display')->nullable()->default(null)->after('min_adult_price');
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pricing_lists', function (Blueprint $table) {
-            $table->dropColumn(['min_adult_price']);
+            $table->dropColumn(['min_adult_price', 'min_adult_price_display']);
         });
     }
 };
