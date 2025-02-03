@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountrySearchController;
 use App\Http\Controllers\OriginSearchController;
 use App\Http\Controllers\TourSearchController;
 use App\Models\Country;
@@ -11,9 +12,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/countries', function() {
-    return Country::simplePaginate(10);
-});
+Route::get('countries/search', CountrySearchController::class);
 
 Route::get('/countries/{countryCode}/locations', function(string $countryCode) {
     return Location::from($countryCode)->get();

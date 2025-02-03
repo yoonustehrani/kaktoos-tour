@@ -34,6 +34,11 @@ class Location extends Model
         return $this->hasMany(Tour::class, 'origin_id')->active();
     }
 
+    public function toursTo()
+    {
+        return $this->belongsToMany(Tour::class, 'tour_destinations');
+    }
+
     public function scopeFrom(Builder $query, string $countryCode)
     {
         if (! preg_match(COUNTRY_CODE_REGEX, $countryCode)) {
