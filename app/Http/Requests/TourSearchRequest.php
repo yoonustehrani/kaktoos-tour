@@ -35,7 +35,9 @@ class TourSearchRequest extends FormRequest
             'per_page' => ['required', 'integer', Rule::in([10, 20, 50])],
             'order_by' => ['string', Rule::enum(TourSearchOrder::class)],
             'sort' => ['string', Rule::in('asc', 'desc')],
-            'term' => ['string', 'min:3', 'max:30']
+            'term' => ['string', 'min:3', 'max:30'],
+            'min_price' => ['integer', 'min_digits:5', 'max_digits:10'],
+            'max_price' => ['integer', 'min_digits:5', 'max_digits:10']
         ];
     }
 }

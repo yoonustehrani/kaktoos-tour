@@ -48,41 +48,26 @@ class TourSearchController extends Controller
                 // TODO
                 break;
         }
-        // return $query->get();
-        // return [
-        //     'max' => $aggregate->max('min_adult_price'),
-        //     'min' => $aggregate->min('min_adult_price'),
-        //     'tours' => $query->paginate(10)
-        // ];
 
-        // $countries_and_locations = aggregated_query($query)->select(
-        //     DB::raw('ARRAY_AGG(DISTINCT locations.id) as location_ids'),
-        //     DB::raw('ARRAY_AGG(DISTINCT locations.country_code) as country_codes')
-        // )
-        // ->leftJoin('tour_destinations', 'aggregate_table.id', '=', 'tour_destinations.tour_id')
-        // ->leftJoin('locations', 'tour_destinations.location_id', '=', 'locations.id')
-        // ->first();
-        // $countries = Country::whereIn('code', array_values(array_unique(explode(',', trim($countries_and_locations->country_codes, '{}')))))->limit(10)->get();
-        // $locations = Location::whereIn('id', array_values(array_unique(explode(',', trim($countries_and_locations->location_ids, '{}')))))->limit(10)->get();
-        
         $tours = $query->with([
             // 'origin',
             // 'destinations' => fn(HasMany $relation) => $relation->orderBy('order')->with('location'),
-            'dates' => function(HasMany $relation) { 
+            'dates' => function(HasMany $relation) use($request) { 
                 $relation->onlyUpcoming()->join('pricing_list_tour_date as ptd', 'tour_dates.id', '=', 'ptd.tour_date_id')
                     ->join('pricing_lists as pl', 'ptd.pricing_list_id', '=', 'pl.id')
                     ->orderBy('start_date')
                     ->select('tour_dates.*', 'pl.min_adult_price', 'pl.min_adult_price_display');
+                if ($request->has('max_price')) {
+                    $relation->where('pl.min_adult_price', '<=', $request->max_price);
+                }
+                if ($request->has('min_price')) {
+                    $relation->where('pl.min_adult_price', '>=', $request->min_price);
+                }
             }
         ]);
+
         return [
-            'meta' => array_merge([
-                'price' => [
-                    'max' => aggregated_query($query)->max('min_adult_price_max'),
-                    'min' => aggregated_query($query)->min('min_adult_price'),
-                ],
-                
-            ]), // , compact('locations', 'countries')
+            'meta' => $this->getMeta($query, $request), // , compact('locations', 'countries')
             'results' => $tours->simplePaginate($request->per_page),
         ];
     }
@@ -103,7 +88,12 @@ class TourSearchController extends Controller
                 // excludes tours without price
                 $join->join('pricing_list_tour_date as ptd', 'dates.id', '=', 'ptd.tour_date_id')
                     ->join('pricing_lists as pl', 'ptd.pricing_list_id', '=', 'pl.id');
-                
+                if ($request->has('max_price')) {
+                    $join->where('pl.min_adult_price', '<=', $request->max_price);
+                }
+                if ($request->has('min_price')) {
+                    $join->where('pl.min_adult_price', '>=', $request->min_price);
+                }
                 if (! ($request->has('start_date') || $request->has('end_date'))) 
                     return;
                 switch (true) {
@@ -163,5 +153,59 @@ class TourSearchController extends Controller
         if ($request->has('term')) {
             $query->whereLike('title', '%' . $request->term .  '%');
         }
+    }
+
+    public function getMeta(Builder &$query, Request &$request)
+    {
+
+        $tourIds = aggregated_query($query)->select('aggregate_table.id as id')->get()->pluck('id');
+
+        $number_of_nights = DB::table('tours')->whereIn('id', $tourIds)
+            ->select('number_of_nights as nights')
+            ->addSelect(DB::raw('COUNT(number_of_nights) as tours_count'))
+            ->groupBy('number_of_nights')
+            ->orderBy('number_of_nights')
+            ->get();
+
+
+        $locationQuery = DB::table('locations')->join('tour_destinations as dest', function(JoinClause $join) use($tourIds) {
+            $join->on('dest.location_id', '=', 'locations.id')->whereIn('dest.tour_id', $tourIds);
+        });
+
+        $destinations_with_count = clone_query($locationQuery)
+            ->select([
+                'locations.id',
+                'locations.name',
+                'locations.name_fa',
+                'locations.country_code',
+                DB::raw('COUNT(DISTINCT dest.tour_id) as tours_count')
+            ])
+            ->groupBy('locations.id')
+            ->get();
+
+        $countries_with_count = clone_query($locationQuery)
+            ->join('countries as c', 'c.code', '=', 'locations.country_code')
+            ->select( 'c.*', DB::raw('COUNT(DISTINCT dest.tour_id) as tours_count'))
+            ->groupBy('c.code', 'c.name')
+            ->get();
+
+        $origins = Location::origin()
+        ->join('tours as t', function(JoinClause $join) use($tourIds) {
+            $join->on('t.origin_id', '=', 'locations.id')
+                ->whereIn('t.id', $tourIds);
+        })
+        ->select('locations.*')->addSelect(DB::raw('COUNT(DISTINCT t.id) as tours_count'))
+        ->groupBy('locations.id')
+        ->get()->toArray();
+        
+        $price = aggregated_query($query)->select(
+            DB::raw('min("min_adult_price") as min'),
+            DB::raw('max("min_adult_price_max") as max')
+        )->first();
+
+        return array_merge([
+            // 'destinations' => $destinations_with_count,
+            // 'countries' => $countries_with_count
+        ], compact('price', 'origins', 'number_of_nights'));
     }
 }
