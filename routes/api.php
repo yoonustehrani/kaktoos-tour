@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OriginSearchController;
 use App\Http\Controllers\TourSearchController;
 use App\Models\Country;
 use App\Models\Location;
@@ -17,5 +18,7 @@ Route::get('/countries', function() {
 Route::get('/countries/{countryCode}/locations', function(string $countryCode) {
     return Location::from($countryCode)->get();
 })->where('countryCode', '[A-Z]{2}');
+
+Route::get('locations/origin/search', OriginSearchController::class);
 
 Route::post('tours/search', TourSearchController::class)->middleware('throttle:10,1');

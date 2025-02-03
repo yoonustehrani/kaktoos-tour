@@ -22,7 +22,7 @@ class TourSearchController extends Controller
         /**
          * @var \Illuminate\Database\Eloquent\Builder
          */
-        $query = Tour::onlyActive()->select('tours.*');
+        $query = Tour::active()->select('tours.*');
 
         $orderBy = TourSearchOrder::tryFrom($request->order_by) ?? TourSearchOrder::BY_START_DATE;
         $sort = $request->sort ?: 'asc';

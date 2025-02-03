@@ -39,7 +39,7 @@ class Tour extends Model
         return $this->hasMany(TourPackage::class);
     }
 
-    public function scopeOnlyActive(Builder $query)
+    public function scopeActive(Builder $query)
     {
         $query->whereActive(true);
     }

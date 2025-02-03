@@ -3,6 +3,7 @@
 use App\Enums\Currencies;
 
 define('SPACE', ' ');
+define('COUNTRY_CODE_REGEX', '/^[A-Z]{2}$/');
 
 if (! function_exists('slugify')) {
     function slugify(string $string): string {

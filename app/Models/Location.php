@@ -29,9 +29,14 @@ class Location extends Model
         $query->whereIsOrigin(false);
     }
 
+    public function toursFrom()
+    {
+        return $this->hasMany(Tour::class, 'origin_id')->active();
+    }
+
     public function scopeFrom(Builder $query, string $countryCode)
     {
-        if (! preg_match('/^[A-Z]{2}$/', $countryCode)) {
+        if (! preg_match(COUNTRY_CODE_REGEX, $countryCode)) {
             throw new CountryCodeErrorException($countryCode);
         }
         $query->whereCountryCode(strtoupper($countryCode));
