@@ -4,8 +4,6 @@ use App\Http\Controllers\CountrySearchController;
 use App\Http\Controllers\DestinationSearchController;
 use App\Http\Controllers\OriginSearchController;
 use App\Http\Controllers\TourSearchController;
-use App\Models\Country;
-use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

@@ -37,7 +37,9 @@ class TourSearchRequest extends FormRequest
             'sort' => ['string', Rule::in('asc', 'desc')],
             'term' => ['string', 'min:3', 'max:30'],
             'min_price' => ['integer', 'min_digits:5', 'max_digits:10'],
-            'max_price' => ['integer', 'min_digits:5', 'max_digits:10']
+            'max_price' => ['integer', 'min_digits:5', 'max_digits:10'],
+            'nights' => 'nullable|array|min:1',
+            'nights.*' => ['integer', 'min:1', 'max:20']
         ];
     }
 }

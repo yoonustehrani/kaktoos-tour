@@ -142,8 +142,20 @@ class TourSearchController extends Controller
             });
         }
 
+        /**
+         * Filters out tours based on search term parameter
+         * a string compared against tours.title
+         */
         if ($request->has('term')) {
             $query->whereLike('title', '%' . $request->term .  '%');
+        }
+
+        /**
+         * Filters out tours based on search term parameter
+         * a string compared against tours.title
+         */
+        if ($request->nights && count($request->nights)) {
+            $query->whereIn('number_of_nights', $request->nights);
         }
     }
 
