@@ -18,7 +18,7 @@ class OriginSearchController extends Controller
             $query->whereLike('name_fa', "%{$request->term}%")
                 ->orWhereLike('name', "%{$request->term}%");
         } else {
-            $query->orderBy('tours_from_count', 'desc');
+            $query->orderBy('tours_count', 'desc');
         }
         return $query->limit(
             $request->limit ?? 10

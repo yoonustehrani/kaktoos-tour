@@ -35,6 +35,12 @@ class DestinationSearchController extends Controller
             $query->orderBy('tours_count', 'desc');
         }
 
-        return $query->get();
+        return $query->with('country')->get()->groupBy('country_code');
+
+        // if ($request->query('groupped')) {
+        //     return $response->groupBy('country_code');
+        // }
+
+        // return $response;
     }
 }

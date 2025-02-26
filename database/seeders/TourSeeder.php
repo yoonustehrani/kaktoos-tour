@@ -24,7 +24,7 @@ class TourSeeder extends Seeder
      */
     public function run(): void
     {
-        $countries = ['DE', 'FR', 'TH'];
+        $countries = ['DE', 'FR', 'TH', 'IT', 'TR'];
         foreach ($countries as $country) {
             $date = fake()->dateTimeBetween('+2 days', '+30 days')->format('Y-m-d');
             $days = random_int(4, 11);
