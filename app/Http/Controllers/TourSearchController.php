@@ -62,6 +62,9 @@ class TourSearchController extends Controller
                 if ($request->has('min_price')) {
                     $relation->where('pl.min_adult_price', '>=', $request->min_price);
                 }
+            },
+            'destinations' => function(HasMany $relation) {
+                $relation->join('locations as l', 'tour_destinations.location_id', '=', 'l.id');
             }
         ]);
 
@@ -206,7 +209,6 @@ class TourSearchController extends Controller
             DB::raw('min("min_adult_price") as min'),
             DB::raw('max("min_adult_price_max") as max')
         )->first();
-
         return array_merge([
             'destinations' => $destinations_with_count,
             'countries' => $countries_with_count
