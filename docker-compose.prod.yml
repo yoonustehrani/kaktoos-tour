@@ -1,5 +1,5 @@
 services:
-    laravel.test:
+    tour-app:
         build:
             context: './vendor/laravel/sail/runtimes/8.4'
             dockerfile: Dockerfile
@@ -8,9 +8,9 @@ services:
         image: 'sail-8.4/app'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        # ports:
+        #     - '${APP_PORT:-80}:80'
+        #     - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
@@ -20,24 +20,22 @@ services:
         volumes:
             - '.:/var/www/html'
         networks:
-            - sail-tour
+            - sail
         depends_on:
             - pgsql
-            - tour-redis
+            - redis
     pgsql:
         image: 'postgres:17'
-        ports:
-            - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
             PGPASSWORD: '${DB_PASSWORD:-secret}'
             POSTGRES_DB: '${DB_DATABASE}'
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
         volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
+            - 'tour-app-pgsql:/var/lib/postgresql/data'
             - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
-            - sail-tour
+            - sail
         healthcheck:
             test:
                 - CMD
@@ -51,12 +49,10 @@ services:
             timeout: 5s
     tour-redis:
         image: 'redis:alpine'
-        ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
-            - 'sail-redis:/data'
+            - 'tour-app-redis:/data'
         networks:
-            - sail-tour
+            - sail
         healthcheck:
             test:
                 - CMD
@@ -65,10 +61,10 @@ services:
             retries: 3
             timeout: 5s
 networks:
-    sail-tour:
+    sail:
         driver: bridge
 volumes:
-    sail-pgsql:
+    tour-app-pgsql:
         driver: local
-    sail-redis:
+    tour-app-redis:
         driver: local
