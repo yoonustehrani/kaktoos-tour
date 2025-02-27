@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Air\Airline;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +38,11 @@ class Tour extends Model
     public function packages()
     {
         return $this->hasMany(TourPackage::class);
+    }
+
+    public function airline()
+    {
+        return $this->belongsTo(Airline::class, 'airline_code');
     }
 
     public function scopeActive(Builder $query)

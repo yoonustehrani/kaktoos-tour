@@ -10,7 +10,8 @@
 		"vscode": {
 			"extensions": [
 				"bmewburn.vscode-intelephense-client",
-				"amiralizadeh9480.laravel-extra-intellisense"
+				"amiralizadeh9480.laravel-extra-intellisense",
+				"austenc.laravel-blade-spacer"
 			],
 			"settings": {
 				"intelephense.environment.phpVersion": "8.4.3"

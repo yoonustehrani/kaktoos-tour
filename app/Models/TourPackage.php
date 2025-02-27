@@ -12,8 +12,14 @@ class TourPackage extends Model
 
     public $timestamps = false;
 
-    // public function pricing_list()
-    // {
-    //     return $this->hasOne(PricingList::class);
-    // }
+
+    public function hotels()
+    {
+        return $this->belongsToMany(Hotel::class, 'hotel_package');
+    }
+
+    public function pricing_list()
+    {
+        return $this->hasOne(PricingList::class);
+    }
 }
