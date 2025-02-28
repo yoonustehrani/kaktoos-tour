@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TourPaymentType;
 use App\Models\Air\Airline;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -14,6 +15,13 @@ class Tour extends Model
     use HasFactory, HasUlids;
 
     protected $fillable = ['title', 'slug', 'origin_id', 'number_of_nights'];
+
+    protected function casts(): array
+    {
+        return [
+            'payment_type' => TourPaymentType::class
+        ];
+    }
 
     public function destinations()
     {

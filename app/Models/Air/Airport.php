@@ -9,6 +9,11 @@ class Airport extends Model
 {
     protected $connection = 'air-hotel';
 
+    public $primaryKey = 'IATA_code';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    public $timestamps = false;
+
     public function country()
     {
         return $this->belongsTo(\App\Models\Country::class, 'country_code');

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Location::class);
             $table->string('name');
             $table->string('name_fa');
-            $table->string('feature_image');
+            $table->string('featured_image_url')->nullable();
         });
     }
 

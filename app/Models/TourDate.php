@@ -17,6 +17,11 @@ class TourDate extends Model
         return $this->belongsToMany(PricingList::class, 'pricing_list_tour_date');
     }
 
+    public function journey_courses()
+    {
+        return $this->hasMany(JourneyCourse::class)->orderBy('order');
+    }
+
     public function scopeOnlyUpcoming(Builder $query)
     {
         $query->where('start_date', '>=', now()->format('Y-m-d'));

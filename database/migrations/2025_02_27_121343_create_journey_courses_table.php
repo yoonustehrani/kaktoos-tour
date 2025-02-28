@@ -21,12 +21,15 @@ return new class extends Migration
             $table->char('transportation_type', 1); // App\Enums\TransportationType::values()
             $table->foreignIdFor(Location::class, 'origin_location_id');
             $table->foreignIdFor(Location::class, 'destination_location_id');
-            $table->nullableMorphs('departure'); // Airport, Location, TrainStation, etc.
+            $table->string('departure_type')->nullable(); // Airport, Location, TrainStation, etc.
+            $table->string('departure_id')->nullable();
             $table->string('departure_time', 5)->nullable(); // 00:00
             $table->string('duration', 5)->nullable(); // 00:00
             $table->string('transition_time', 5)->nullable(); // 00:00
-            $table->nullableMorphs('arrival'); // Airport, Location, TrainStation, etc.
-            $table->nullableMorphs('transportation_firm'); // Airline, etc.
+            $table->string('arrival_type')->nullable(); // Airport, Location, TrainStation, etc.
+            $table->string('arrival_id')->nullable();
+            $table->string('transportation_firm_type')->nullable(); // Airline, etc.
+            $table->string('transportation_firm_id')->nullable();
             $table->string('item_number', 24)->nullable(); // flight number, etc.
             $table->unsignedSmallInteger('baggage'); // 30
         });

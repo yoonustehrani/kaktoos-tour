@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function() {
-    return App\Models\Air\Airline::limit(3)->get();
-    // ::with('country')->where('country_code', 'IR')->limit(3)->get();
+    // return;
+    return App\Models\Tour::select('id', 'number_of_nights')->get();
 });
 
 Route::get('/user', function (Request $request) {

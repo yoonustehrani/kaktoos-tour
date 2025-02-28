@@ -13,7 +13,14 @@ class TourShowController extends Controller
     public function __invoke(Request $request, string $id)
     {
         $tour = Tour::whereId($id);
-        $tour->with('origin', 'destinations', 'dates');
-        return $tour->first();
+
+        $tour->with(['origin', 'destinations.location', 'dates' => function($q) {
+            $q->with(['pricing_lists' => function($q) {
+                $q->with('package.hotels', 'pricings');
+            }, 'journey_courses' => function($jq) {
+                $jq->with('transportation_firm', 'departure', 'arrival');
+            }]);
+        }]);
+        return response()->json($tour->first());
     }
 }
