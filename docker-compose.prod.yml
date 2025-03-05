@@ -60,9 +60,9 @@ services:
                 - ping
             retries: 3
             timeout: 5s
-networks:
-    sail:
-        driver: bridge
+# networks:
+#     sail:
+#         driver: bridge
 volumes:
     tour-app-pgsql:
         driver: local

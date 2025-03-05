@@ -3,6 +3,8 @@
 use App\Http\Controllers\CountrySearchController;
 use App\Http\Controllers\DestinationSearchController;
 use App\Http\Controllers\OriginSearchController;
+use App\Http\Controllers\TourDateJourneyController;
+use App\Http\Controllers\TourDetailsController;
 use App\Http\Controllers\TourSearchController;
 use App\Http\Controllers\TourShowController;
 use Illuminate\Http\Request;
@@ -27,3 +29,5 @@ Route::get('locations/origin/search', OriginSearchController::class);
 Route::post('tours/search', TourSearchController::class)->middleware('throttle:10,1');
 
 Route::get('tours/{id}', TourShowController::class);
+Route::get('tours/{id}/details', TourDetailsController::class);
+Route::get('tours/{tourId}/dates/{dateId}/journey', TourDateJourneyController::class);

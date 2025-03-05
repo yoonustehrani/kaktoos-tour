@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Location::class);
             $table->string('name');
             $table->string('name_fa');
+            $table->unsignedTinyInteger('stars')->default(0);
             $table->string('featured_image_url')->nullable();
         });
     }

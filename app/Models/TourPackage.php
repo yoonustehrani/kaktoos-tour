@@ -15,7 +15,7 @@ class TourPackage extends Model
 
     public function hotels()
     {
-        return $this->belongsToMany(Hotel::class, 'hotel_package');
+        return $this->belongsToMany(Hotel::class, 'hotel_package')->withPivot(['service', 'room_style', 'details']);
     }
 
     public function pricing_list()

@@ -18,7 +18,8 @@ class HotelFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'name_fa' => fake()->words(2, true)
+            'name_fa' => fake()->words(2, true),
+            'stars' => fake()->numberBetween(0, 5)
         ];
     }
 }
