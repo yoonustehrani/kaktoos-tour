@@ -39,4 +39,14 @@ class JourneyCourse extends Model
     {
         return $this->morphTo();
     }
+
+    public function origin()
+    {
+        return $this->belongsTo(Location::class, 'origin_location_id');
+    }
+
+    public function destination()
+    {
+        return $this->belongsTo(Location::class, 'destination_location_id');
+    }
 }

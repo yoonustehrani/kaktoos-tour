@@ -16,6 +16,7 @@ class TourDateJourneyController extends Controller
         return response()->json(
             JourneyCourse::whereTourId($tourId)
             ->whereTourDateId($dateId)
+            ->with('origin', 'destination')
             ->with('transportation_firm', 'departure', 'arrival')
             ->get()
         );

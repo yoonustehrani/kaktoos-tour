@@ -10,12 +10,6 @@ use App\Http\Controllers\TourShowController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/', function() {
-    // return;
-    return App\Models\Tour::select('id', 'number_of_nights')->get();
-});
-
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
