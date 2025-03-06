@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +32,10 @@ class DestinationSearchController extends Controller
         if ($request->query('term')) {
             $query->whereLike('name_fa', "%{$request->term}%")
                 ->orWhereLike('name', "%{$request->term}%");
+            $query->orWhereHas('country', function(Builder $q) use($request) {
+                $q->whereLike('name_fa', "%{$request->term}%")
+                    ->orWhereLike('name', "%{$request->term}%");
+            });
         } else {
             $query->orderBy('tours_count', 'desc');
         }
