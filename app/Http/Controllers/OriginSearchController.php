@@ -13,7 +13,7 @@ class OriginSearchController extends Controller
      */
     public function __invoke(OriginSearchRequest $request)
     {
-        $query = Location::origin()->withCount('toursFrom');
+        $query = Location::origin()->withCount('toursFrom as tours_count');
         if ($request->term) {
             $query->whereLike('name_fa', "%{$request->term}%")
                 ->orWhereLike('name', "%{$request->term}%");
