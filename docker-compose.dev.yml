@@ -1,12 +1,29 @@
 services:
     tour-app:
-        image: yoonustehrani/kaktoos-tour-backend:latest
-        networks:
-            - web
-        ports:
-          - "8000:8000"
+        build:
+            context: './vendor/laravel/sail/runtimes/8.4'
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: 'sail-8.4/app'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        # ports:
+        #     - '${APP_PORT:-80}:80'
+        #     - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
-          - './storage/app/public:/app/storage/app/public:rw'
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - pgsql
+            - redis
     pgsql:
         image: 'postgres:17'
         environment:
