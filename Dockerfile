@@ -15,7 +15,7 @@ RUN \
 # npm run build
 FROM base AS static-builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps */app/node_modules ./node_modules
 # Could be improved using only the needed files for build
 COPY . .
 RUN \
@@ -64,6 +64,6 @@ RUN apt-get update -y && apt-get install -y supervisor
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY --from=static-builder /app/public/build ./public/build
+COPY --from=static-builder */app/public/build ./public/build
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
