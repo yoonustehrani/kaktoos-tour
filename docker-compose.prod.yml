@@ -3,6 +3,7 @@ services:
         image: yoonustehrani/kaktoos-tour-backend:latest
         networks:
             - web
+            - tour-sail
         ports:
           - "8000:8000"
         volumes:
@@ -18,7 +19,7 @@ services:
             - 'tour-app-pgsql:/var/lib/postgresql/data'
             - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
-            - sail
+            - tour-sail
         healthcheck:
             test:
                 - CMD
@@ -35,7 +36,7 @@ services:
         volumes:
             - 'tour-app-redis:/data'
         networks:
-            - sail
+            - tour-sail
         healthcheck:
             test:
                 - CMD
@@ -43,9 +44,10 @@ services:
                 - ping
             retries: 3
             timeout: 5s
-# networks:
-#     sail:
-#         driver: bridge
+networks:
+    tour-sail:
+        driver: bridge
+
 volumes:
     tour-app-pgsql:
         driver: local
