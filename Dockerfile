@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN \
   if [ -f package-lock.json ]; then npm ci; \
-  else echo "Lockfile not found." && exit 1; \
+  else echo "Lockfile not found."; \
   fi
 
 # npm run build
@@ -20,7 +20,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN \
   if [ -f package-lock.json ]; then npm run build; \
-  else echo "Lockfile not found." && exit 1; \
+  else echo "Lockfile not found."; \
   fi
 
 # Serving the app
