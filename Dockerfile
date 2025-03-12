@@ -42,6 +42,7 @@ RUN install-php-extensions \
     pcre \
     pdo \
     pdo_mysql \
+    pdo_pgsql \
     session \
     tokenizer \
     xml \
