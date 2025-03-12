@@ -4,8 +4,8 @@ services:
         networks:
             - web
             - tour-sail
-        ports:
-          - "8000:8000"
+        # ports:
+        #   - "8000:8000"
         volumes:
           - './storage/app/public:/app/storage/app/public:rw'
     pgsql:
