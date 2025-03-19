@@ -48,7 +48,7 @@ class TourSearchController extends Controller
                 // TODO
                 break;
         }
-        $query->whereHas('dates', function(HasMany $relation) {
+        $query->whereHas('dates', function($relation) {
             $relation->onlyUpcoming();
         });
         $tours = $query->with([
