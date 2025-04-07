@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Tour extends Model
 {
@@ -31,6 +32,22 @@ class Tour extends Model
     public function origin()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    /**
+     * Get all of the categories for the tour.
+     */
+    public function categories(): MorphToMany
+    {
+        return $this->morphToMany(Category::class, 'categorized', table: 'categorization');
+    }
+
+    /**
+     * Get all of the tags for the tour.
+     */
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'tagged', table: 'tagging');
     }
 
     public function dates()
