@@ -20,7 +20,8 @@ class Tour extends Model
     protected function casts(): array
     {
         return [
-            'payment_type' => TourPaymentType::class
+            'payment_type' => TourPaymentType::class,
+            'published_at' => 'datetime'
         ];
     }
 

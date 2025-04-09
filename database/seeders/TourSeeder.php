@@ -44,8 +44,15 @@ class TourSeeder extends Seeder
                 'origin_id' => $origin_location,
                 'number_of_nights' => $days - 1,
                 'airline_code' => $airline,
-                'payment_type' => fake()->randomElement(TourPaymentType::cases())
-            ])->country($country)->has(
+                'payment_type' => fake()->randomElement(TourPaymentType::cases()),
+                'is_inbound' => false
+            ])->country($country)->state(function ($state) use($date) {
+                $title = $state['title'] . " " . \Morilog\Jalali\Jalalian::fromCarbon(Carbon::createFromFormat('Y-m-d', $date))->format('%B %Y');
+                return [
+                    'title' => $title,
+                    'slug' => str_ireplace(' ', '-', $title)
+                ];
+            })->has(
                 factory: TourDate::factory()->count(2)
                     ->state(new Sequence(fn (Sequence $sequence) => [
                         'start_date' => Carbon::createFromFormat('Y-m-d', $date)->addDays($sequence->index)->format('Y-m-d')

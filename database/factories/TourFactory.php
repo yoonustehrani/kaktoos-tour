@@ -27,7 +27,8 @@ class TourFactory extends Factory
         $title = 'تور' . " " . Country::whereCode($code)->first()->name_fa;
         return $this->state([
             'title' => $title,
-            'slug' => str_ireplace(' ', '-', $title)
+            'slug' => str_ireplace(' ', '-', $title),
+            'published_at' => now()
         ]);
     }
 }
