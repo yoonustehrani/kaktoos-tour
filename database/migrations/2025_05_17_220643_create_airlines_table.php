@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('countries', function (Blueprint $table) {
-            $table->char('code', 2)->unique()->primary();
+        Schema::create('airlines', function (Blueprint $table) {
+            $table->char('code', 3)->primary();
             $table->string('name');
             $table->string('name_fa')->nullable();
-            $table->string('continent');
+            $table->char('icao', 3)->nullable();
+            $table->string('logo');
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('airlines');
     }
 };
