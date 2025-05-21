@@ -12,6 +12,8 @@ class TourDestination extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['id', 'number_of_nights', 'requires_visa', 'visa_preparation_days', 'location_id'];
+
     public function location()
     {
         return $this->belongsTo(Location::class);

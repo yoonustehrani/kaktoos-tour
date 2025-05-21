@@ -8,13 +8,17 @@ use Livewire\Form;
 
 class DestinationForm extends Form
 {
-    public ?TourDestination $destination;
+    // public ?TourDestination $destination;
 
+    #[Validate('required|int|min:1')]
     public ?int $location_id;
 
-    public int $number_of_nights = 0;
+    #[Validate('required|int|min:1')]
+    public ?int $number_of_nights;
 
+    #[Validate('required|boolean')]
     public bool $requires_visa = false;
 
-    public ?int $visa_preparation_days;
+    #[Validate('nullable|int|min:1')]
+    public ?int $visa_preparation_days = null;
 }

@@ -25,3 +25,7 @@ body {
 .form-input[aria-invalid="true"] {
 	@apply border-red-500;
 }
+
+::backdrop, dialog:open {
+	@apply w-full h-full bg-black/80 z-[9999] flex items-center justify-center;
+}
