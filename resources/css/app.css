@@ -1,3 +1,27 @@
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: 'Vazirmatn';
+	src: url(/resources/fonts/Vazirmatn[wght].woff2) format('woff2 supports variations'),
+		url(/resources/fonts/Vazirmatn[wght].woff2) format('woff2-variations');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+
+}
+
+body {
+    @apply font-vazir;
+}
+
+.form-input {
+	@apply focus-visible:outline-none border border-black/10 rounded-md;
+}
+
+.form-input[aria-invalid="true"] {
+	@apply border-red-500;
+}

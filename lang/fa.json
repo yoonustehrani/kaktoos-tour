@@ -1,0 +1,13 @@
+{
+    "Nights": "شب",
+    "Step": "گام",
+    "Create new tour": "ایجاد تور جدید",
+    "Tour Initial Data": "اطلاعات اولیه تور",
+    "Tour Metadata": "اطلاعات تکمیلی تور",
+    "Origin and Destinations": "مبدا و مقصد ها",
+    "Dates and Journey": "تاریخ ها و برنامه سفر",
+    "Hotel Packages and Pricing": "پکیج هتل ها و قیمت گذاری",
+    "No result found for :keyword": "نتیجه ای برای :keyword یافت نشد.",
+    "inbound": "داخلی",
+    "outbound": "خارجی"
+}

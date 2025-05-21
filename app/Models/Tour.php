@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\TourPaymentType;
-use App\Models\Air\Airline;
+use App\Models\Airline;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
