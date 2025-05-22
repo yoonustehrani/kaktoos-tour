@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AirlineSeeder::class);
         $this->call(AirportSeeder::class);
         $this->call(LocationSeeder::class);
+        $this->call(HolidaySeeder::class);
         // $this->call(LocationSeeder::class);
         // $this->call(TourSeeder::class);
     }
