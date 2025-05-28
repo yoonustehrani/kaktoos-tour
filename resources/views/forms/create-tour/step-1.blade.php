@@ -35,18 +35,21 @@
             <div class="text-red-500">
                 @error('form.title') <span class="error">{{ $message }}</span> @enderror
             </div>
-            <div class="flex items-center justify-between text-gray-500">
-                <span class="w-1/2 flex items-center gap-2">
+            <div class="flex items-center justify-between gap-3 text-gray-500">
+                <div class="grow flex items-center gap-2">
                     <livewire:airline-select 
                         :selectedId="$form->airline_code ?? null"
                         placeholder="جستجوی ایرلاین ..."
                     />
                     <i class="h-5 fi fi-rs-plane"></i>
-                </span>
-                <span class="w-1/2 flex items-center justify-end gap-2">
-                    <span><input type="number" wire:model='form.number_of_nights' min="0" max="20" class="max-w-14 form-input w-full py-1 px-2"> @lang('Nights')</span>
-                    <i class="h-5 fi fi-rs-moon"></i>
-                </span>
+                </div>
+                <div class="w-fit flex items-center justify-end gap-2">
+                    <input type="number" wire:model='form.number_of_nights' min="0" max="20" class="max-w-14 form-input w-full py-1 px-2"> 
+                    <span class="flex items-center gap-2">
+                        <i class="h-5 fi fi-rs-moon"></i>
+                        @lang('Nights')
+                    </span>
+                </div>
             </div>
             @error('form.airline_code')
             <div class="text-red-500">
@@ -60,9 +63,9 @@
             @enderror
             <div></div>
             <div class="flex justify-center">
-                <button type="submit" class="px-3 duration-300 py-1 text-white bg-gray-700 rounded-full flex items-center gap-1 font-semibold">
+                <button type="submit" class="px-3 duration-300 py-1 text-white bg-gray-700 rounded-full flex items-center gap-2 font-semibold">
                     بعدی
-                    <span class="text-lg h-4 fi fi-rs-eye"></span>
+                    <span class="text-lg h-4 fi fi-rs-arrow-left"></span>
                 </button>
             </div>
         </div>

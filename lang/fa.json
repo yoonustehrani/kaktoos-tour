@@ -9,5 +9,12 @@
     "Hotel Packages and Pricing": "پکیج هتل ها و قیمت گذاری",
     "No result found for :keyword": "نتیجه ای برای :keyword یافت نشد.",
     "inbound": "داخلی",
-    "outbound": "خارجی"
+    "outbound": "خارجی",
+    "Saturday": "شنبه",
+    "Sunday": "یکشنبه",
+    "Monday": "دوشنبه",
+    "Tuesday": "سه شنبه",
+    "Wednesday": "چهارشنبه",
+    "Thursday": "پنجشنبه",
+    "Friday": "جمعه"
 }

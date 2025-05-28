@@ -25,7 +25,7 @@
     </div>
     
     <!-- Dropdown menu -->
-    <div x-show="open" x-transition class="absolute z-20 w-full mt-1 bg-white border rounded shadow-lg max-h-60 overflow-auto">
+    <div x-cloak x-show="open" x-transition class="absolute z-20 w-full mt-1 bg-white border rounded shadow-lg max-h-60 overflow-auto">
         @if(count($results) > 0)
             @foreach($results as $item)
                 <x-dynamic-component :component="$itemComponent" :$item/>

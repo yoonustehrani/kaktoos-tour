@@ -1,41 +1,6 @@
-<div class="w-fit px-4 flex-shrink h-full flex duration-1000 items-center justify-center border-l border-black/10">
-    <div class="w-[23rem] h-fit flex flex-col bg-white border border-black/10 rounded-lg">
-        <div class="w-full h-72 bg-gray-400 rounded-t-lg relative">
-            <img src="{{ asset('storage/' . $form->image_url) }}" class="w-full h-full">
-            <div class="absolute top-3 right-3 flex gap-2">
-                <span class="rounded-md  pt-1 px-2 {{ $form->is_inbound ? 'bg-purple-500' : 'bg-sky-500' }}">
-                    تور {{ $form->is_inbound ? __('inbound') : __('outbound') }}
-                </span>
-                <span
-                    class="rounded-md pt-1 px-2 {{ $form->payment_type === \App\Enums\TourPaymentType::FULL ? 'bg-green-500' : 'bg-yellow-500' }}">
-                    {{ $form->payment_type->getTitleFa() }}
-                </span>
-            </div>
-        </div>
-        <div class="px-3 py-4 flex flex-col justify-between gap-4 grow">
-            <span class="font-bold text-2xl">{{ $form->title }}</span>
-            <hr class="opacity-90">
-            <div class="flex items-center justify-between text-gray-500">
-                @php
-                $airline = App\Models\Airline::find($form->airline_code);
-                @endphp
-                @if($airline)
-                <span class="w-1/2 flex items-center gap-2">
-                    <i class="h-5 fi fi-rs-plane"></i>
-                    <span>{{ $airline->name_fa ?? $airline_name }}</span>
-                </span>
-                @endif
-                <span class="w-1/2 flex items-center justify-end gap-2">
-                    <span>{{ $form->number_of_nights }} @lang('Nights')</span>
-                    <i class="h-5 fi fi-rs-moon"></i>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
+@include('forms.create-tour.sidebar')
 <div class="w-auto h-full flex-grow bg-gray-100 duration-300">
-    <div
-        class="h-fit max-h-full w-full overflow-y-auto gap-3 gap-y-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-8">
+    <div class="h-full max-h-full w-full overflow-y-auto gap-6 gap-y-8 place-content-start grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-8">
         <div>
             <h4 class="font-bold text-xl pb-4 flex items-center gap-2"><i class="h-5 fi fi-rs-text"></i>نوع تور</h4>
             <div role="radiogroup" class="mx-auto flex gap-4 justify-start">
@@ -110,7 +75,14 @@
                     eventName="origin-item-selected" originMode />
             </div>
         </div>
-        <div class="col-span-2">
+        <x-textarea title="توضیحات تور" icon_class="comment" wire:model='form.description' placeholder="مسئولیت کنترل پاسپورت از جهت اعتبار و ..."/>
+        <x-textarea title="قوانین استرداد" icon_class="book" wire:model='form.return_policy' placeholder="گارانتی و ..."/>
+        <x-textarea title="مدارک لازم" icon_class="passport" wire:model='form.required_documents' placeholder="اصل پاسپورت - اصل شناسنامه - اصل کارت ملی"/>
+        <x-textarea title="خدمات تور" icon_class="list" wire:model='form.services' placeholder="پرواز رفت و برگشت مستقیم ..."/>
+        @if ($form->payment_type === \App\Enums\TourPaymentType::INSTALLMENT)
+            <x-textarea title="شرایط اقساطی" icon_class="percentage" wire:model='form.installment_policy' placeholder="اقساط بین 1 تا 4 ماه - کارمزد 4% ..."/>
+        @endif
+        {{-- <div class="col-span-2">
             <div class="h-full">
                 <!-- Table -->
                 <div class="w-full max-w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200">
@@ -149,6 +121,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
