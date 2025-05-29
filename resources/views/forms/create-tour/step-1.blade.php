@@ -22,6 +22,11 @@
                     {{ $message }}
                 </div>
             @enderror
+            @error('form.image_src')
+                <div class="absolute h-auto bottom-0 left-0 w-full py-1 px-2 text-sm text-red-500 bg-red-300">
+                    {{ $message }}
+                </div>
+            @enderror
             <!-- File Input -->
             <input type="file" id="tour-file" wire:model="photo" class="hidden">
 
@@ -46,8 +51,8 @@
                 <div class="w-fit flex items-center justify-end gap-2">
                     <input type="number" wire:model='form.number_of_nights' min="0" max="20" class="max-w-14 form-input w-full py-1 px-2"> 
                     <span class="flex items-center gap-2">
+                        <span>@lang('Nights')</span>
                         <i class="h-5 fi fi-rs-moon"></i>
-                        @lang('Nights')
                     </span>
                 </div>
             </div>

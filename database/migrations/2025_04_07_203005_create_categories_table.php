@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignIdFor(Classification::class);
-            $table->string('image_url')->nullable();
+            $table->string('image_src')->nullable();
             $table->string('icon_class')->nullable();
         });
     }

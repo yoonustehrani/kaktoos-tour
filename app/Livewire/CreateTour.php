@@ -7,6 +7,8 @@ use App\Livewire\Forms\DestinationForm;
 use App\Livewire\Forms\TourForm;
 use App\Models\Location;
 use App\Models\TourDestination;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session as LaravelSession;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Session;
@@ -21,19 +23,6 @@ class CreateTour extends Component
     use WithFileUploads;
 
     public TourForm $form;
-
-    // public DestinationForm $destination_form;
-
-    // public $displayDialog = false;
-
-
-    // public function toggleDisplay()
-    // {
-    //     $this->displayDialog = ! $this->displayDialog;
-    // }
-
-    // #[Session('dest1')]
-    // public array $destinations = [];
 
     #[Session('tour-form-step')]
     public int $step = 1;
@@ -82,94 +71,52 @@ class CreateTour extends Component
         $this->form->origin_id = intval($id);
     }
 
-    // #[On('destination-item-selected')]
-    // public function setLocationId($id) {
-    //     $this->destination_form->location_id = intval($id);
-    // }
+    #[On('undo-airline-item-selected')]
+    public function removeAirlineCode() {
+        $this->form->airline_code = null;
+    }
 
-    // public function removeDestination($id) {
-    //     $this->destinations = collect($this->destinations)->filter(fn($x) => $x['id'] !== intval($id))->toArray();
-    // }
-
-    // public function addDestination()
-    // {
-    //     $this->destination_form->validate();
-    
-    //     $this->destinations[] = [
-    //         'id' => random_int(1_000_000, 999_999_999),
-    //         'location_id' => $this->destination_form->location_id,
-    //         'location' => Location::find($this->destination_form->location_id)->toArray(),
-    //         'number_of_nights' => $this->destination_form->number_of_nights,
-    //         'requires_visa' => $this->destination_form->requires_visa,
-    //         'visa_preparation_days' => $this->destination_form->visa_preparation_days,
-    //     ];
-        
-    //     $this->destination_form->reset();
-    //     $this->displayDialog = false;
-    // }
+    #[On('undo-origin-item-selected')]
+    public function removeOriginId() {
+        $this->form->origin_id = null;
+    }
 
     public function submit()
     {
-        // $this->form->valida;
-        // $this->validate();
         switch ($this->step) {
             case 1:
                 if ($this->photo) {
-                    $this->form->image_url = 'storage/' . $this->photo->storePublicly('tours', 'public');
+                    $this->form->image_src = 'storage/' . $this->photo->storePublicly('tours', 'public');
                 }
                 break;
             case 2:
                 $this->form->slug = slugify($this->form->title);
-                $this->form->published_at = now();
+                $this->form->published_at = null;
                 break;
-            case 3:
-
         }
         $this->form->validate(
-            $this->validation_rules()[$this->step]
+            TourForm::validation_rules()[$this->step]
         );
+        if ($this->step === 2) {
+            try {
+                $this->form->save();
+                LaravelSession::flash('alert', [
+                    'type' => 'success',
+                    'message' => __('Tour was created successfully.')
+                ]);
+                $params = ['tour' => $this->form->tour->id, 'section' => 'destinations'];
+                $this->form->reset();
+                $this->step = 1;
+                $this->redirectAction(EditTour::class, $params, navigate: true);
+            } catch (\Throwable $th) {
+                Log::error($th);
+                LaravelSession::flash('alert', [
+                    'type' => 'error',
+                    'message' => __('Tour was failed to be created.')
+                ]);
+                $this->redirectRoute('tours.create', navigate: true);
+            }
+        }
         $this->incrementStep();
-    }
-
-    public function changePublishedAtTime(string $time)
-    {
-        [$hour, $minute] = explode(':', $time);
-        $this->form->published_at->setHour(intval($hour))->setMinute(intval($minute));
-    }
-
-    public function changePublishedAtDate(string $date)
-    {
-        [$year, $month, $day] = explode('-', $date);
-        $this->form->published_at->setDate(intval($year), intval($month), intval($day));
-    }
-
-    /**
-     * @return array Array of Validation rules for each step
-     */
-    protected function validation_rules()
-    {
-        return [
-            1 => [
-                'title' => 'required|string|min:3|max:120',
-                'number_of_nights' => 'required|int|min:0|max:20',
-                'airline_code' => 'required|string|min:2|max:3|exists:airlines,code',
-                'image_url' => 'required|string'
-            ],
-            2 => [
-                'is_inbound' => 'required|boolean',
-                'payment_type' => ['required', Rule::enum(TourPaymentType::class)],
-                'origin_id' => 'required|exists:locations,id',
-                'description' => 'nullable|string|min:3|max:500',
-                'return_policy' => 'nullable|string|min:3|max:500',
-                'required_documents' => 'nullable|string|min:3|max:500',
-                'services' => 'nullable|string|min:3|max:500',
-                'installment_policy' => 'required_if:payment_type,I|string|min:3|max:500'
-            ],
-
-            3 => [
-                'slug' => 'required|unique:tours,slug|string|min:2|max:150',
-                'published_at' => 'required|after:now'
-            ]
-        ];
     }
 }

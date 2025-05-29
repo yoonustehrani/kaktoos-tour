@@ -1,4 +1,4 @@
-@include('forms.create-tour.sidebar')
+<x-sidebar :tour='$form' />
 <div class="w-auto h-full flex-grow bg-gray-100 duration-300">
     <div class="h-full max-h-full w-full overflow-y-auto gap-6 gap-y-8 place-content-start grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-8">
         <div>
@@ -70,9 +70,14 @@
         </div>
         <div>
             <h4 class="font-bold text-xl pb-4 flex items-center gap-2"><i class="h-5 fi fi-rs-map-pin"></i>مبدا</h4>
-            <div class="w-1/2 flex items-center gap-2">
+            <div class="flex flex-col max-w-48 items-center gap-2">
                 <livewire:location-select :selectedId="$form->origin_id ?? null" placeholder="جستجوی مبدا ..."
                     eventName="origin-item-selected" originMode />
+                @error('form.origin_id')
+                    <div class="text-red-500">
+                        <span class="error">{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
         </div>
         <x-textarea title="توضیحات تور" icon_class="comment" wire:model='form.description' placeholder="مسئولیت کنترل پاسپورت از جهت اعتبار و ..."/>
@@ -82,45 +87,11 @@
         @if ($form->payment_type === \App\Enums\TourPaymentType::INSTALLMENT)
             <x-textarea title="شرایط اقساطی" icon_class="percentage" wire:model='form.installment_policy' placeholder="اقساط بین 1 تا 4 ماه - کارمزد 4% ..."/>
         @endif
-        {{-- <div class="col-span-2">
-            <div class="h-full">
-                <!-- Table -->
-                <div class="w-full max-w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200">
-                    <header class="px-5 py-4 border-b border-gray-100">
-                        <div class="flex items-center gap-3">
-                            <h4 class="font-bold text-xl flex items-center gap-2"><i class="h-5 fi fi-rs-route"></i>مقصد ها</h4>
-                            <button class="border border-gray-700 py-1 px-3 rounded-md shadow-md" type="button"
-                                wire:click='toggleDisplay'>افزودن مقصد</button>
-                        </div>
-                    </header>
-                    <div class="p-3">
-                        <div class="overflow-x-auto">
-                            <table class="table-auto w-full">
-                                <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                                    <tr>
-                                        <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold text-center">نام مقصد</div>
-                                        </th>
-                                        <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold text-center">اقامت</div>
-                                        </th>
-                                        <th class="p-2 whitespace-nowrap">
-                                            <div class="font-semibold text-center">اخذ ویزا</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                @if ($destinations)
-                                    <tbody class="text-sm divide-y divide-gray-100">
-                                        @foreach ($destinations as $destination)
-                                            <x-tour-destination-row :$destination/>
-                                        @endforeach
-                                    </tbody>
-                                @endif
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+        <div class="col-span-full flex items-center justify-center">
+            <button wire:click='submit' class="px-3 duration-300 py-1 text-white bg-gray-700 rounded-full flex items-center gap-2 font-semibold">
+                ادامه
+                <span class="text-lg h-4 fi fi-rs-arrow-left"></span>
+            </button>
+        </div>
     </div>
 </div>

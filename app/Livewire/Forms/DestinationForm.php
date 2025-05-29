@@ -8,7 +8,7 @@ use Livewire\Form;
 
 class DestinationForm extends Form
 {
-    // public ?TourDestination $destination;
+    public TourDestination $destination;
 
     #[Validate('required|int|min:1')]
     public ?int $location_id;
@@ -21,4 +21,11 @@ class DestinationForm extends Form
 
     #[Validate('nullable|int|min:1')]
     public ?int $visa_preparation_days = null;
+
+    public function save()
+    {
+        $this->destination = new TourDestination();
+        $this->destination->fill($this->except('destination'));
+        $this->destination->save();
+    }
 }

@@ -193,7 +193,9 @@ return [
 
     'attributes' => [
         'title' => 'عنوان',
-        'airline_code' => 'ایرلاین'
+        'airline_code' => 'ایرلاین',
+        'image_src' => 'تصویر تور',
+        'origin_id' => 'مبدا تور'
     ],
 
 ];

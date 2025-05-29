@@ -29,6 +29,7 @@ class Searchable extends Component
     {
         $this->selectedId = null;
         $this->selectedName = '';
+        $this->dispatch('undo-' . $this->eventName);
     }
 
     public function render()

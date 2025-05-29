@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\TourPaymentType;
 use App\Models\Airline;
+use App\Traits\HasMetaAttribute;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,9 +14,14 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 class Tour extends Model
 {
     /** @use HasFactory<\Database\Factories\TourFactory> */
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasMetaAttribute;
 
-    protected $fillable = ['title', 'slug', 'origin_id', 'number_of_nights'];
+    protected $fillable = [
+        'title', 'slug', 'origin_id', 'number_of_nights',
+        'image_src', 'image_alt',
+        'airline_code',
+        'is_inbound', 'payment_type', 'origin_id',
+    ];
 
     protected function casts(): array
     {

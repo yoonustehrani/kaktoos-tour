@@ -25,7 +25,7 @@ return new class extends Migration
             $table->tinyText('image_src');
             $table->tinyText('image_alt')->nullable();
             $table->timestamps();
-            $table->timestamp('published_at');
+            $table->timestamp('published_at')->nullable();
             $table->json('meta')->nullable();
         });
     }
