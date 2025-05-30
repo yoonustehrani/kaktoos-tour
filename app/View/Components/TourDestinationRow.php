@@ -14,7 +14,7 @@ class TourDestinationRow extends Component
      */
     public function __construct(public $destination)
     {
-        $this->destination = new TourDestination($destination);
+        $this->destination = $destination;
     }
 
     /**

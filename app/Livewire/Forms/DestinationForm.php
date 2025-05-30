@@ -2,13 +2,14 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Tour;
 use App\Models\TourDestination;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class DestinationForm extends Form
 {
-    public TourDestination $destination;
+    // public TourDestination $destination;
 
     #[Validate('required|int|min:1')]
     public ?int $location_id;
@@ -22,10 +23,12 @@ class DestinationForm extends Form
     #[Validate('nullable|int|min:1')]
     public ?int $visa_preparation_days = null;
 
-    public function save()
+    public function save(Tour $tour)
     {
-        $this->destination = new TourDestination();
-        $this->destination->fill($this->except('destination'));
-        $this->destination->save();
+        $destination = new TourDestination();
+        $destination->fill($this->toArray());
+        $order = $tour->destinations()->max('order');
+        $destination->order = $order ? $order + 1 : 0;
+        return $tour->destinations()->save($destination);
     }
 }

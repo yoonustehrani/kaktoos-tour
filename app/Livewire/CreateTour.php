@@ -100,20 +100,14 @@ class CreateTour extends Component
         if ($this->step === 2) {
             try {
                 $this->form->save();
-                LaravelSession::flash('alert', [
-                    'type' => 'success',
-                    'message' => __('Tour was created successfully.')
-                ]);
+                swal(__('Tour was created successfully.'));
                 $params = ['tour' => $this->form->tour->id, 'section' => 'destinations'];
                 $this->form->reset();
                 $this->step = 1;
                 $this->redirectAction(EditTour::class, $params, navigate: true);
             } catch (\Throwable $th) {
                 Log::error($th);
-                LaravelSession::flash('alert', [
-                    'type' => 'error',
-                    'message' => __('Tour was failed to be created.')
-                ]);
+                swal(__('Tour was failed to be created.'), 'error');
                 $this->redirectRoute('tours.create', navigate: true);
             }
         }

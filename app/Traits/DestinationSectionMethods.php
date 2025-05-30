@@ -4,6 +4,8 @@ namespace App\Traits;
 
 use App\Livewire\Forms\DestinationForm;
 use App\Models\Location;
+use App\Models\TourDestination;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Session;
 
@@ -19,8 +21,7 @@ trait DestinationSectionMethods
         $this->displayDialog = ! $this->displayDialog;
     }
 
-    #[Session]
-    public array $destinations = [];
+    public Collection $destinations;
 
     #[On('destination-item-selected')]
     public function setLocationId($id) {
@@ -28,15 +29,11 @@ trait DestinationSectionMethods
     }
 
     public function removeDestination($id) {
-        $this->destinations = collect($this->destinations)->filter(fn($x) => $x['id'] !== intval($id))->toArray();
-    }
-
-    public function addDestination()
-    {
-        $this->destination_form->validate();
-        $this->destination_form->save();
-        $this->destinations[] = $this->destination_form->destination;
-        $this->destination_form->reset();
-        $this->displayDialog = false;
+        try {
+            TourDestination::whereId($id)->delete();
+            $this->destinations = $this->destinations->filter(fn($x) => $x['id'] !== intval($id));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

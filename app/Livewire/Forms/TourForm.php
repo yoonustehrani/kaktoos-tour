@@ -103,12 +103,24 @@ class TourForm extends Form
     }
 
     // public function tour()
-
     public function save()
     {
-        $this->tour = new Tour();
+        if (! $this->tour) {
+            $this->tour = new Tour();
+        }
         $this->tour->fill($this->except(['tour', 'description', 'return_policy', 'required_documents', 'services', 'installment_policy']));
         $this->tour->meta = $this->only(['description', 'return_policy', 'required_documents', 'services', 'installment_policy']);
         return $this->tour->save();
+    }
+
+    public function setTour(Tour $tour)
+    {
+        $this->tour = $tour;
+        $keys = array_keys($tour->toArray());
+        foreach ($keys as $key) {
+            if ($this->hasProperty($key)) {
+                $this->{$key} = $tour->{$key};
+            }
+        }
     }
 }

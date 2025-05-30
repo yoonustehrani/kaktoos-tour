@@ -12,6 +12,7 @@
                     {{ $tour->payment_type->getTitleFa() }}
                 </span>
             </div>
+            {{ $slot }}
         </div>
         <div class="px-3 py-4 flex flex-col justify-between gap-4 grow">
             <span class="font-bold text-2xl">{{ $tour->title }}</span>

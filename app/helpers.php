@@ -73,3 +73,9 @@ if (! function_exists('convert_numbers')) {
         }
     }
 }
+
+if (! function_exists('swal')) {
+    function swal($message, $level = 'success') {
+        session()->flash('alert', compact('message', 'level'));
+    }
+}
