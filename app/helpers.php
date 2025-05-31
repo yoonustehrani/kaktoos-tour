@@ -52,3 +52,30 @@ if (! function_exists('aggregated_query')) {
             ->mergeBindings($query->getQuery());
     }
 }
+
+
+if (! function_exists('convert_numbers')) {
+    /**
+     * Converts between English and Persian (Arabic) digits
+     * 
+     * @param string $string The input string containing numbers to convert
+     * @param bool $toPersian If true, converts English to Persian; if false, converts Persian to English
+     * @return string The converted string
+     */
+    function convert_numbers($string, $toPersian = true) {
+        $english = array('0','1','2','3','4','5','6','7','8','9');
+        $persian = array('۰','۱','۲','۳','۴','۵','۶','۷','۸','۹');
+        
+        if ($toPersian) {
+            return str_replace($english, $persian, $string);
+        } else {
+            return str_replace($persian, $english, $string);
+        }
+    }
+}
+
+if (! function_exists('swal')) {
+    function swal($message, $level = 'success') {
+        session()->flash('alert', compact('message', 'level'));
+    }
+}

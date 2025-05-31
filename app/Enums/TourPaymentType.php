@@ -13,5 +13,5 @@ enum TourPaymentType: string
     case FULL = 'F';
 
     #[TitleFa('اقساطی')]
-    case INSTALLMeNT = 'I';
+    case INSTALLMENT = 'I';
 }

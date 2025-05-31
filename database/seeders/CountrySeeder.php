@@ -15,7 +15,7 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        $countries = new CSVReader(database_path('seeders/data/countries.csv'), ['str', 'str', 'str'])
+        $countries = new CSVReader(database_path('seeders/data/countries.csv'), ['str', 'str', 'str', 'str'])
             ->read()
             ->getData();
         DB::transaction(function() use($countries) {

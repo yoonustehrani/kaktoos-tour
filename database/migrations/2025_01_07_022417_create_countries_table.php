@@ -15,6 +15,7 @@ return new class extends Migration
             $table->char('code', 2)->unique()->primary();
             $table->string('name');
             $table->string('name_fa')->nullable();
+            $table->string('continent');
         });
     }
 

@@ -16,10 +16,17 @@ return new class extends Migration
             $table->ulid('id')->unique()->primary();
             $table->string('title');
             $table->string('slug');
-            $table->boolean('active')->default(true)->index();
+            $table->boolean('is_inbound')->index();
+            $table->boolean('active')->default(false)->index();
             $table->foreignIdFor(Location::class, 'origin_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->smallInteger('number_of_nights')->unsigned()->nullable();
+            $table->char('airline_code', 3)->nullable();
+            $table->char('payment_type', 1);
+            $table->tinyText('image_src');
+            $table->tinyText('image_alt')->nullable();
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
+            $table->json('meta')->nullable();
         });
     }
 
