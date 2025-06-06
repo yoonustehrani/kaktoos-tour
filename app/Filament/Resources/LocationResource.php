@@ -4,17 +4,21 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LocationResource\Pages;
 use App\Filament\Resources\LocationResource\RelationManagers;
+use App\Filament\Traits\ResourceCommonMethods;
 use App\Models\Location;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LocationResource extends Resource
 {
+    use ResourceCommonMethods;
+
     protected static ?string $model = Location::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -23,10 +27,10 @@ class LocationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->alpha()->required()->maxLength(100),
-                Forms\Components\TextInput::make('name_fa')->alpha()->required()->maxLength(100),
-                Forms\Components\Checkbox::make('is_origin'),
-                Forms\Components\Select::make('country_code')
+                Forms\Components\TextInput::make('name')->translateLabel()->alpha()->required()->maxLength(100),
+                Forms\Components\TextInput::make('name_fa')->translateLabel()->alpha()->required()->maxLength(100),
+                Forms\Components\Toggle::make('is_origin')->translateLabel(),
+                Forms\Components\Select::make('country_code')->translateLabel()
                     ->relationship('country', 'name_fa')
                     ->searchable()
                     ->preload()
@@ -43,9 +47,10 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name_fa')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
-                \App\Tables\Columns\CoutryImage::make('country.code')->searchable(['name_fa', 'name']),
+                Tables\Columns\TextColumn::make('name_fa')->translateLabel()->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('name')->translateLabel()->searchable()->sortable(),
+                \App\Tables\Columns\CoutryImage::make('country.code')->translateLabel()->searchable(['name_fa', 'name']),
+                ToggleColumn::make('is_origin')->translateLabel()
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_origin')

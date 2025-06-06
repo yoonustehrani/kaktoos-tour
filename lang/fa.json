@@ -22,5 +22,12 @@
     "Edited successfully.": "ویرایش موفقیت آمیز بود.",
     "Editing :item": "ویرایش :item",
     "Tour": "تور",
-    "Overview": "در یک نگاه"
+    "Overview": "در یک نگاه",
+    "Name": "نام",
+    "Name fa": "نام فارسی",
+    "Country": "کشور",
+    "Is origin": "مبدا؟",
+    "Is inbound": "تور داخلی؟",
+    "Title": "عنوان",
+    "Origin": "مبدا"
 }

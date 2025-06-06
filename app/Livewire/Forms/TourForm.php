@@ -105,7 +105,7 @@ class TourForm extends Form
     // public function tour()
     public function save()
     {
-        if (! $this->tour) {
+        if (! isset($this->tour)) {
             $this->tour = new Tour();
         }
         $this->tour->fill($this->except(['tour', 'description', 'return_policy', 'required_documents', 'services', 'installment_policy']));

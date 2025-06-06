@@ -26,9 +26,9 @@ class CountryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('code')->alpha()->required()->length(2),
-                Forms\Components\TextInput::make('name')->alpha()->required()->maxLength(100),
-                Forms\Components\TextInput::make('name_fa')->alpha()->required()->maxLength(100),
+                Forms\Components\TextInput::make('code')->translateLabel()->alpha()->required()->length(2),
+                Forms\Components\TextInput::make('name')->translateLabel()->alpha()->required()->maxLength(100),
+                Forms\Components\TextInput::make('name_fa')->translateLabel()->alpha()->required()->maxLength(100),
             ]);
     }
 
@@ -36,9 +36,9 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name_fa'),
-                Tables\Columns\TextColumn::make('name'),
-                \App\Tables\Columns\CoutryImage::make('code'),
+                Tables\Columns\TextColumn::make('name_fa')->translateLabel(),
+                Tables\Columns\TextColumn::make('name')->translateLabel(),
+                \App\Tables\Columns\CoutryImage::make('code')->label('')->translateLabel(),
             ])
             ->filters([
                 //
