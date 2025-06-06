@@ -55,9 +55,10 @@ class LocationResource extends Resource
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_origin')
                     ->label('Location Type')
-                    ->placeholder('All locations')
-                    ->trueLabel('Origins')
-                    ->falseLabel('Destinations')
+                    ->placeholder(__('All'))
+                    ->trueLabel(__('Origins'))
+                    ->falseLabel(__('Destinations'))
+                    ->translateLabel()
                     ->queries(
                         true: fn (Builder $query) => $query->where('is_origin', true),
                         false: fn (Builder $query) => $query->where('is_origin', false),

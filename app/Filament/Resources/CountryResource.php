@@ -36,9 +36,9 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name_fa')->translateLabel(),
-                Tables\Columns\TextColumn::make('name')->translateLabel(),
-                \App\Tables\Columns\CoutryImage::make('code')->label('')->translateLabel(),
+                Tables\Columns\TextColumn::make('name_fa')->translateLabel()->searchable(),
+                Tables\Columns\TextColumn::make('name')->translateLabel()->searchable(),
+                \App\Tables\Columns\CoutryImage::make('code')->label('')->translateLabel()->searchable(),
             ])
             ->filters([
                 //

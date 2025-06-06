@@ -13,5 +13,13 @@ return [
     'tour' => [
         'label' => 'تور',
         'plural_label' => 'تورها'
-    ]
+    ],
+    'category' => [
+        'label' => 'دسته‌بندی',
+        'plural_label' => 'دسته‌بندی‌ها'
+    ],
+    'classification' => [
+        'label' => 'گروه‌بندی',
+        'plural_label' => 'گروه‌بندی‌ها'
+    ],
 ];

@@ -29,5 +29,14 @@
     "Is origin": "مبدا؟",
     "Is inbound": "تور داخلی؟",
     "Title": "عنوان",
-    "Origin": "مبدا"
+    "Origin": "مبدا",
+    "Code": "کد",
+    "Location Type": "نوع لوکیشن",
+    "Origins": "مبدا ها",
+    "Destinations": "مقصد ها",
+    "All": "همه",
+    "Image": "تصویر",
+    "Unique Image": "تصویر یکتا",
+    "Icon class": "کلاس آیکن",
+    "Classification": "گروه‌بندی"
 }

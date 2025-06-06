@@ -11,4 +11,9 @@ class Category extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class);
+    }
 }
