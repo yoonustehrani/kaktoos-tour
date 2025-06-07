@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('kaktoos-panel')
             ->login()
+            ->profile(isSimple: false)
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -60,6 +61,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseTransactions();
     }
 }

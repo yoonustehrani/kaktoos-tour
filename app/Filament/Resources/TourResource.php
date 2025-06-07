@@ -47,7 +47,10 @@ class TourResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('edit')->translateLabel()->url(function(Model $record) {
+                    return route('tours.edit', ['tour' => $record->id]);
+                })
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

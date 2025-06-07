@@ -88,11 +88,11 @@ class TourForm extends Form
                 'is_inbound' => 'required|boolean',
                 'payment_type' => ['required', Rule::enum(TourPaymentType::class)],
                 'origin_id' => 'required|exists:locations,id',
-                'description' => 'nullable|string|min:3|max:500',
-                'return_policy' => 'nullable|string|min:3|max:500',
-                'required_documents' => 'nullable|string|min:3|max:500',
-                'services' => 'nullable|string|min:3|max:500',
-                'installment_policy' => 'required_if:payment_type,I|string|min:3|max:500'
+                'description' => 'nullable|string|min:3|max:700',
+                'return_policy' => 'nullable|string|min:3|max:700',
+                'required_documents' => 'nullable|string|min:3|max:700',
+                'services' => 'nullable|string|min:3|max:700',
+                'installment_policy' => 'required_if:payment_type,I|string|min:3|max:700'
             ],
 
             3 => [

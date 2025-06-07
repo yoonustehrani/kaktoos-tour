@@ -33,7 +33,7 @@ class EditTour extends Component
 
     public function mount(Tour $tour, ?string $section = null)
     {
-        $this->section = $section;
+        $this->section = $section ?? 'overview';
         $this->section_name = $this->sections[$section ?? 0];
         $this->tour_form->setTour($tour);
         $this->destinations = $tour->destinations()->get();

@@ -4,8 +4,10 @@ use App\Livewire\CreateTour;
 use App\Livewire\EditTour;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/tours/create', CreateTour::class)->name('tours.create');
-Route::get('/tours/{tour}/edit/{section?}', EditTour::class)->name('tours.edit');
+Route::middleware([\Filament\Http\Middleware\Authenticate::class])->group(function() {
+    Route::get('/tours/create', CreateTour::class)->name('tours.create');
+    Route::get('/tours/{tour}/edit/{section?}', EditTour::class)->name('tours.edit');
+});
 
 // Route::get('/calendar.csv', function() {
 //     $keys = ['date', 'event_name', 'event_type', 'is_off'];
