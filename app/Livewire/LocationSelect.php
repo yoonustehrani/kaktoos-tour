@@ -35,7 +35,11 @@ class LocationSelect extends Searchable
             $this->results = $this->getDefaultQuery()
                 ->where(function($q) {
                     $q->where('name', 'ILIKE', '%' . $this->search . '%')
-                    ->orWhere('name_fa', 'like', '%' . $this->search . '%');
+                        ->orWhere('name_fa', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('country', function($q) {
+                    $q->where('name', 'ILIKE', '%' . $this->search . '%')
+                        ->orWhere('name_fa', 'like', '%' . $this->search . '%');
                 })
                 ->limit(10)
                 ->get()

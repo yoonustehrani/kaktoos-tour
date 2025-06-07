@@ -15,7 +15,7 @@
                     @break
                 @case($tour_form->image_src)
                     <div class="w-full h-full flex flex-col items-center justify-center relative">
-                        <img src="{{ asset($tour_form->image_src) }}" class="w-full h-full">
+                        <img src="{{ get_file_url($tour_form->image_src) }}" class="w-full h-full">
                         <div class="w-full h-full bg-black/50 absolute flex flex-col items-center justify-center">
                             <i class="fi fi-rs-gallery text-4xl"></i>
                             <span>تغییر تصویر تور</span>

@@ -195,7 +195,9 @@ return [
         'title' => 'عنوان',
         'airline_code' => 'ایرلاین',
         'image_src' => 'تصویر تور',
-        'origin_id' => 'مبدا تور'
+        'origin_id' => 'مبدا تور',
+        'published_at' => 'تاریخ و ساعت انتشار',
+        'slug' => 'لینک یکتای صفحه'
     ],
 
 ];

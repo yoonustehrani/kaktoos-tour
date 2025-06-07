@@ -35,21 +35,33 @@ class TourResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->translateLabel()->formatStateUsing(fn($state) => $state),
+                Tables\Columns\ImageColumn::make('image_src')->label('Unique Image')->translateLabel()->checkFileExistence(false),
+                Tables\Columns\TextColumn::make('title')->searchable()->translateLabel(),
                 Tables\Columns\TextColumn::make('origin.name_fa')->translateLabel(),
-                Tables\Columns\TextColumn::make('destinations.location.name_fa')->translateLabel(),
+                // Tables\Columns\TextColumn::make('destinations.location.name_fa')->translateLabel(),
                 Tables\Columns\TextColumn::make('is_inbound')
-                ->label('داخلی / خارجی')
+                ->label('Tour type')
+                ->translateLabel()
                 ->formatStateUsing(fn($state) => $state ? 'داخلی' : 'خارجی')
                 ->color(fn (string $state): string => $state ? 'success' : 'danger')
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('is_inbound')
+                    ->label('Tour type')
+                    ->placeholder(__('All'))
+                    ->trueLabel(__('inbound'))
+                    ->falseLabel(__('outbound'))
+                    ->translateLabel()
+                    ->queries(
+                        true: fn (Builder $query) => $query->where('is_inbound', true),
+                        false: fn (Builder $query) => $query->where('is_inbound', false),
+                        blank: fn (Builder $query) => $query, // In this example, we do not want to filter the query when it is blank.
+                    )
             ])
             ->actions([
                 Tables\Actions\Action::make('edit')->translateLabel()->url(function(Model $record) {
                     return route('tours.edit', ['tour' => $record->id]);
-                })
+                })->icon('heroicon-m-pencil-square')
                 // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

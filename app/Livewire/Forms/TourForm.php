@@ -18,7 +18,7 @@ use ReflectionObject;
 class TourForm extends Form
 {
     public ?Tour $tour;
-
+    protected array $meta_keys = ['description', 'return_policy', 'required_documents', 'services', 'installment_policy'];
     /**
      * Step 1
      */
@@ -70,12 +70,12 @@ class TourForm extends Form
     public ?string $slug = '';
 
     #[Session]
-    public ?Carbon $published_at;
+    public ?Carbon $published_at = null;
 
     /**
      * @return array Array of Validation rules for each step
      */
-    public static function validation_rules()
+    public static function validation_rules(array $data = [])
     {
         return [
             1 => [
@@ -96,7 +96,13 @@ class TourForm extends Form
             ],
 
             3 => [
-                'slug' => 'required|unique:tours,slug|string|min:2|max:150',
+                'slug' => [
+                    'required',
+                    Rule::unique('tours')->ignore($data['id']),
+                    'string',
+                    'min:2',
+                    'max:150'
+                ],
                 'published_at' => 'required|after:now'
             ]
         ];
@@ -109,7 +115,7 @@ class TourForm extends Form
             $this->tour = new Tour();
         }
         $this->tour->fill($this->except(['tour', 'description', 'return_policy', 'required_documents', 'services', 'installment_policy']));
-        $this->tour->meta = $this->only(['description', 'return_policy', 'required_documents', 'services', 'installment_policy']);
+        $this->tour->meta = $this->only($this->meta_keys);
         return $this->tour->save();
     }
 
@@ -120,6 +126,11 @@ class TourForm extends Form
         foreach ($keys as $key) {
             if ($this->hasProperty($key)) {
                 $this->{$key} = $tour->{$key};
+            }
+        }
+        foreach ($this->meta_keys as $key) {
+            if ($this->hasProperty($key)) {
+                $this->{$key} = $tour->meta->{$key} ?? '';
             }
         }
     }

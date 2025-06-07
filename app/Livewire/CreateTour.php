@@ -86,7 +86,7 @@ class CreateTour extends Component
         switch ($this->step) {
             case 1:
                 if ($this->photo) {
-                    $this->form->image_src = 'storage/' . $this->photo->storePublicly('tours', 'public');
+                    $this->form->image_src = $this->photo->storePublicly('tours', 'public');
                 }
                 break;
             case 2:

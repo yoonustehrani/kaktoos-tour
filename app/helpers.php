@@ -4,6 +4,7 @@ use App\Enums\Currencies;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 define('SPACE', ' ');
 define('COUNTRY_CODE_REGEX', '/^[A-Z]{2}$/');
@@ -77,5 +78,12 @@ if (! function_exists('convert_numbers')) {
 if (! function_exists('swal')) {
     function swal($message, $level = 'success') {
         session()->flash('alert', compact('message', 'level'));
+    }
+}
+
+if (! function_exists('get_file_url')) {
+    function get_file_url(string $path)
+    {
+        return asset(Storage::url($path));
     }
 }

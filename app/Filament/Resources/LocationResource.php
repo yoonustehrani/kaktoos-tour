@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -50,7 +51,7 @@ class LocationResource extends Resource
                 Tables\Columns\TextColumn::make('name_fa')->translateLabel()->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('name')->translateLabel()->searchable()->sortable(),
                 \App\Tables\Columns\CoutryImage::make('country.code')->translateLabel()->searchable(['name_fa', 'name']),
-                ToggleColumn::make('is_origin')->translateLabel()
+                IconColumn::make('is_origin')->boolean()->translateLabel()
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_origin')
