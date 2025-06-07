@@ -1,15 +1,11 @@
 <?php
 
-use App\Livewire\Calendar;
 use App\Livewire\CreateTour;
 use App\Livewire\EditTour;
-use App\Utils\CSVReader;
 use Illuminate\Support\Facades\Route;
-use Morilog\Jalali\Jalalian;
 
 Route::get('/tours/create', CreateTour::class)->name('tours.create');
 Route::get('/tours/{tour}/edit/{section?}', EditTour::class)->name('tours.edit');
-// Route::get('/calendar', Calendar::class);
 
 // Route::get('/calendar.csv', function() {
 //     $keys = ['date', 'event_name', 'event_type', 'is_off'];
@@ -42,7 +38,7 @@ Route::get('/tours/{tour}/edit/{section?}', EditTour::class)->name('tours.edit')
 //         $i++;
 //     }
 
-//     return response($csv)->withHeaders([
-//         'Content-Type' => 'text/csv'
-//     ]);
+    // return response($csv)->withHeaders([
+    //     'Content-Type' => 'text/csv'
+    // ]);
 // });

@@ -22,4 +22,8 @@ return [
         'label' => 'گروه‌بندی',
         'plural_label' => 'گروه‌بندی‌ها'
     ],
+    'tag' => [
+        'label' => 'برچسب',
+        'plural_label' => 'برچسب‌ها'
+    ],
 ];

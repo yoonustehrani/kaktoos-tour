@@ -31,18 +31,18 @@ class CategoryResource extends Resource
                 TextInput::make('title')->translateLabel()->required(),
                 Forms\Components\Select::make('classification_id')->translateLabel()
                     ->relationship('classification', 'title')
-                    ->searchable()
+                    // ->searchable()
                     ->preload()
                     ->createOptionForm([
                         TextInput::make('title')->translateLabel()->required(),
                     ])
                     ->required(),
-                TextInput::make('icon_class')->translateLabel()->required(),
+                TextInput::make('icon_class')->translateLabel()->requiredWithout('image_src'),
                 FileUpload::make('image_src')
                     ->label('Unique Image')->translateLabel()
                     ->image()->imageEditor()->openable()->moveFiles()
                     ->maxSize(750)
-                    ->nullable()
+                    ->requiredWithout('icon_class')
             ]);
     }
 
@@ -50,8 +50,9 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\ImageColumn::make('image_src'),
+                Tables\Columns\TextColumn::make('title')->translateLabel(),
+                Tables\Columns\ImageColumn::make('image_src')->label('Unique Image')->translateLabel(),
+                Tables\Columns\TextColumn::make('classification.title')->translateLabel()
                 // Tables\Columns\
             ])
             ->filters([

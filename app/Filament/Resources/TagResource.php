@@ -2,11 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ClassificationResource\Pages;
-use App\Filament\Resources\ClassificationResource\RelationManagers;
+use App\Filament\Resources\TagResource\Pages;
+use App\Filament\Resources\TagResource\RelationManagers;
 use App\Filament\Traits\ResourceCommonMethods;
-use App\Models\Classification;
+use App\Models\Tag;
 use Filament\Forms;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -14,11 +17,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ClassificationResource extends Resource
+class TagResource extends Resource
 {
     use ResourceCommonMethods;
 
-    protected static ?string $model = Classification::class;
+    protected static ?string $model = Tag::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -26,7 +29,16 @@ class ClassificationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->translateLabel()->required(),
+                TextInput::make('title')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                        if (!is_null($old) && ($get('slug') ?? '') !== slugify($old)) {
+                            return;
+                        }
+                    
+                        $set('slug', slugify($state));
+                    }),
+                TextInput::make('slug')
             ]);
     }
 
@@ -34,7 +46,7 @@ class ClassificationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->translateLabel()
+                //
             ])
             ->filters([
                 //
@@ -59,9 +71,9 @@ class ClassificationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClassifications::route('/'),
-            'create' => Pages\CreateClassification::route('/create'),
-            'edit' => Pages\EditClassification::route('/{record}/edit'),
+            'index' => Pages\ListTags::route('/'),
+            'create' => Pages\CreateTag::route('/create'),
+            'edit' => Pages\EditTag::route('/{record}/edit'),
         ];
     }
 }
