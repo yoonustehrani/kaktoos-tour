@@ -19,9 +19,11 @@ class TourResource extends Resource
 {
     use ResourceCommonMethods;
 
+    protected static ?string $navigationGroup = 'Tour';
+
     protected static ?string $model = Tour::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fas-suitcase';
 
     public static function form(Form $form): Form
     {

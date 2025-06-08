@@ -19,9 +19,11 @@ class AirportResource extends Resource
 {
     use ResourceCommonMethods;
 
+    protected static ?string $navigationGroup = 'Places';
+
     protected static ?string $model = Airport::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
+    protected static ?string $navigationIcon = 'fas-plane';
 
     public static function form(Form $form): Form
     {

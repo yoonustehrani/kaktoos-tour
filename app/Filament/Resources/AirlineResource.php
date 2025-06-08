@@ -18,6 +18,8 @@ class AirlineResource extends Resource
 {
     use ResourceCommonMethods;
 
+    protected static ?string $navigationGroup = 'Tour';
+
     protected static ?string $model = Airline::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';

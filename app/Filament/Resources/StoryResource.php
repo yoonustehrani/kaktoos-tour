@@ -22,7 +22,7 @@ class StoryResource extends Resource
 
     protected static ?string $model = Story::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-photo';
+    protected static ?string $navigationIcon = 'fab-instagram';
 
     public static function form(Form $form): Form
     {
