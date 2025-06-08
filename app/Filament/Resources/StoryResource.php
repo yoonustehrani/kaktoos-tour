@@ -2,14 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TagResource\Pages;
-use App\Filament\Resources\TagResource\RelationManagers;
+use App\Filament\Resources\StoryResource\Pages;
+use App\Filament\Resources\StoryResource\RelationManagers;
 use App\Filament\Traits\ResourceCommonMethods;
-use App\Models\Tag;
+use App\Models\Story;
 use Filament\Forms;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,28 +14,29 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TagResource extends Resource
+class StoryResource extends Resource
 {
     use ResourceCommonMethods;
 
-    protected static ?string $model = Tag::class;
+    protected static ?string $model = Story::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('title')
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                        if (!is_null($old) && ($get('slug') ?? '') !== slugify($old)) {
-                            return;
-                        }
-                    
-                        $set('slug', slugify($state));
-                    }),
-                TextInput::make('slug')
+                Forms\Components\TextInput::make('title')->translateLabel()->required(),
+                Forms\Components\Select::make('tour_id')->translateLabel()
+                    ->relationship('tour', 'title')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Forms\Components\FileUpload::make('image_src')
+                    ->label('Unique Image')->translateLabel()
+                    ->image()->imageEditor()->openable()->moveFiles()
+                    ->maxSize(750)
+                    ->required()
             ]);
     }
 
@@ -71,9 +69,9 @@ class TagResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTags::route('/'),
-            'create' => Pages\CreateTag::route('/create'),
-            'edit' => Pages\EditTag::route('/{record}/edit'),
+            'index' => Pages\ListStories::route('/'),
+            'create' => Pages\CreateStory::route('/create'),
+            'edit' => Pages\EditStory::route('/{record}/edit'),
         ];
     }
 }

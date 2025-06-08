@@ -26,4 +26,12 @@ return [
         'label' => 'برچسب',
         'plural_label' => 'برچسب‌ها'
     ],
+    'story' => [
+        'label' => 'استوری',
+        'plural_label' => 'استوری‌ها'
+    ],
+    'user' => [
+        'label' => 'کاربر',
+        'plural_label' => 'کاربران'
+    ]
 ];

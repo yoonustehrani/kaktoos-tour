@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,8 @@ class CategoryListController extends Controller
         if ($request->query('classification_id')) {
             $query->where('classification_id', $request->query('classification_id'));
         }
-        return response()->json($query->get());
+        return response()->json(
+            CategoryResource::collection($query->get())
+        );
     }
 }

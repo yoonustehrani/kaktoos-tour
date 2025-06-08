@@ -10,6 +10,8 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -28,7 +30,16 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->translateLabel()->required(),
+                TextInput::make('title')->translateLabel()->required()
+                ->live(onBlur: true)
+                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                        if (!is_null($old) && ($get('slug') ?? '') !== slugify($old)) {
+                            return;
+                        }
+                    
+                        $set('slug', slugify($state));
+                    }),
+                TextInput::make('slug')->translateLabel(),
                 Forms\Components\Select::make('classification_id')->translateLabel()
                     ->relationship('classification', 'title')
                     // ->searchable()
