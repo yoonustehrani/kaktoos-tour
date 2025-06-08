@@ -20,6 +20,8 @@ class LocationResource extends Resource
 {
     use ResourceCommonMethods;
 
+    protected static ?string $navigationGroup = 'Places';
+
     protected static ?string $model = Location::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-map-pin';

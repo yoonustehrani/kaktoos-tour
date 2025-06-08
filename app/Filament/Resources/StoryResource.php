@@ -18,9 +18,11 @@ class StoryResource extends Resource
 {
     use ResourceCommonMethods;
 
+    protected static ?string $navigationGroup = 'Website';
+
     protected static ?string $model = Story::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-photo';
 
     public static function form(Form $form): Form
     {

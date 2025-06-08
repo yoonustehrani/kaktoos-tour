@@ -18,6 +18,8 @@ class ClassificationResource extends Resource
 {
     use ResourceCommonMethods;
 
+    protected static ?string $navigationGroup = 'Website';
+
     protected static ?string $model = Classification::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

@@ -13,4 +13,12 @@ trait ResourceCommonMethods
     {
         return __("filament/resources.". parent::getModelLabel() .".plural_label");
     }
+
+    public static function getNavigationGroup(): ?string
+    {
+        if (! isset(self::$navigationGroup)) {
+            return null;
+        }
+        return __(self::$navigationGroup);
+    }
 }

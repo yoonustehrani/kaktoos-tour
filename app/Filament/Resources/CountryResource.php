@@ -18,6 +18,8 @@ class CountryResource extends Resource
 {
     use ResourceCommonMethods; 
 
+    protected static ?string $navigationGroup = 'Places';
+
     protected static ?string $model = Country::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
@@ -68,4 +70,9 @@ class CountryResource extends Resource
             'edit' => Pages\EditCountry::route('/{record}/edit'),
         ];
     }
+
+    // public static function getNavigationGroup(): ?string
+    // {
+    //     return __('Places');
+    // } 
 }
