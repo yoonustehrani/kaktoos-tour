@@ -46,5 +46,9 @@
     "Email": "ایمیل",
     "Password": "رمز عبور",
     "Places": "مکان ها",
-    "Website": "وب‌سایت"
+    "Website": "وب‌سایت",
+    "Is international": "بین المللی؟",
+    "Logo": "لوگو",
+    "IATA": "کد یاتا",
+    "ICAO": "کد ایکائو"
 }

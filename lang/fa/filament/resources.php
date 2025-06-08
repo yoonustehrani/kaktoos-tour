@@ -33,5 +33,13 @@ return [
     'user' => [
         'label' => 'کاربر',
         'plural_label' => 'کاربران'
+    ],
+    'airline' => [
+        'label' => 'ایرلاین',
+        'plural_label' => 'ایرلاین‌ها'
+    ],
+    'airport' => [
+        'label' => 'فرودگاه',
+        'plural_label' => 'فرودگاه‌ها'
     ]
 ];
