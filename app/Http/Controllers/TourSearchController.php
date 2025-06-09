@@ -116,8 +116,8 @@ class TourSearchController extends Controller
             $query->addSelect(DB::raw("MIN(dates.start_date) as earliest_start_date"));
             $query->addSelect(DB::raw("MIN(pl.min_adult_price) as min_adult_price"));
             $query->addSelect(DB::raw("MAX(pl.min_adult_price) as min_adult_price_max"));
-            $query->groupBy('tours.id')
-                ->distinct();
+            $query->groupBy('tours.id');
+                // ->distinct();
         }
         /**
          * Filters out tours based on origins parameter

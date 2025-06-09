@@ -1,7 +1,252 @@
-code,name,name_fa
-IR,Iran,ایران
-DE,Germany,آلمان
-FR,France,فرانسه
-IT,Italy,ایتالیا
-TH,Thailand,تایلند
-TR,Turkey,ترکیه
+code,name,name_fa,continent
+AD,Andorra,آندورا,europe
+AE,United Arab Emirates,امارات متحده عربی,asia
+AF,Afghanistan,افغانستان,asia
+AG,Antigua and Barbuda,آنتیگوا و باربودا,north-america
+AI,Anguilla,آنگویلا,north-america
+AL,Albania,آلبانی,europe
+AM,Armenia,ارمنستان,asia
+AN,Netherlands Antilles,آنتیل هلند,north-america
+AO,Angola,آنگولا,africa
+AQ,antarctica,جنوبگان,antarctica
+AR,Argentina,آرژانتین,south-america
+AS,American Samoa,ساموآی آمریکا,oceania
+AT,Austria,اتریش,europe
+AU,Australia,استرالیا,oceania
+AW,Aruba,آروبا,north-america
+AX,Aland Islands,جزایر الند,europe
+AZ,Azerbaijan,آذربایجان,asia
+BA,Bosnia and Herzegovina,بوسنی و هرزگوین,europe
+BB,Barbados,باربادوس,north-america
+BD,Bangladesh,بنگلادش,asia
+BE,Belgium,بلژیک,europe
+BF,Burkina Faso,بورکینافاسو,africa
+BG,Bulgaria,بلغارستان,europe
+BH,Bahrain,بحرین,asia
+BI,Burundi,بوروندی,africa
+BJ,Benin,بنین,africa
+BL,Saint Barthelemy,سنت بارتلمی,north-america
+BM,Bermuda,برمودا,north-america
+BN,Brunei Darussalam,برونئی,asia
+BO,Bolivia,بولیوی,south-america
+BQ,Bonaire St. Eustatius,بونیر سنت یوستیشس,north-america
+BR,Brazil,برزیل,south-america
+BS,Bahamas,باهاما,north-america
+BT,Bhutan,بوتان,asia
+BV,Bouvet Island,جزیره بووه,antarctica
+BW,Botswana,بوتسوانا,africa
+BY,Belarus,بلاروس,europe
+BZ,Belize,بلیز,north-america
+CA,Canada,کانادا,north-america
+CC,Cocos (Keeling) Islands,جزایر کوکوس,asia
+CD,Congo,کنگو,africa
+CF,Central african Republic,جمهوری آفریقای مرکزی,africa
+CG,Congo,کنگو,africa
+CH,Switzerland,سوئیس,europe
+CI,Cote D'Ivoire (Ivory Coast),ساحل عاج,africa
+CK,Cook Islands,جزایر کوک,oceania
+CL,Chile,شیلی,south-america
+CM,Cameroon,کامرون,africa
+CN,China,چین,asia
+CO,Colombia,کلمبیا,south-america
+CR,Costa Rica,کاستاریکا,north-america
+CU,Cuba,کوبا,north-america
+CV,Cape Verde,کیپ ورد,africa
+CW,Curacao,کوراسائو,north-america
+CX,Christmas Island,جزیره کریسمس,oceania
+CY,Cyprus,قبرس,asia
+CZ,Czech Republic,جمهوری چک,europe
+DE,Germany,آلمان,europe
+DJ,Djibouti,جیبوتی,africa
+DK,Denmark,دانمارک,europe
+DM,Dominica,دومینیکا,north-america
+DO,Dominican Republic,جمهوری دومینیکن,north-america
+DZ,Algeria,الجزایر,africa
+EC,Ecuador,اکوادور,south-america
+EE,Estonia,استونی,europe
+EG,Egypt,مصر,africa
+EH,Western Sahara,صحرای غربی,africa
+ER,Eritrea,اریتره,africa
+ES,Spain,اسپانیا,europe
+ET,Ethiopia,اتیوپی,africa
+FI,Finland,فنلاند,europe
+FJ,Fiji,فیجی,oceania
+FK,Falkland Islands (Malvinas),جزایر فالکلند,south-america
+FM,Micronesia,ایالات فدرال میکرونزی,oceania
+FO,Faroe Islands,جزایر فارو,europe
+FR,France,فرانسه,europe
+GA,Gabon,گابن,africa
+GB,Great Britain (UK),بریتانیا,europe
+GD,Grenada,گرنادا,north-america
+GE,Georgia,گرجستان,asia
+GF,French Guiana,گویان فرانسه,south-america
+GG,Guernsey,گرنزی,europe
+GH,Ghana,غنا,africa
+GI,Gibraltar,جبل الطارق,europe
+GL,Greenland,گرینلند,north-america
+GM,Gambia,گامبیا,africa
+GN,Guinea,گینه,africa
+GP,Guadeloupe,گوادلوپ,north-america
+GQ,Equatorial Guinea,گینه استوایی,africa
+GR,Greece,یونان,europe
+GS,S. Georgia and S. Sandwich Isls.,جزایر جورجیای جنوبی و ساندویچ جنوبی,antarctica
+GT,Guatemala,گواتمالا,north-america
+GU,Guam,گوام,oceania
+GW,Guinea-Bissau,گینه بیسائو,africa
+GY,Guyana,گویان,south-america
+HK,Hong Kong,هنگ کنگ,asia
+HM,Heard and McDonald Islands,جزایر هرد و مک دونالد,antarctica
+HN,Honduras,هندوراس,north-america
+HR,Croatia (Hrvatska),کرواسی,europe
+HT,Haiti,هائیتی,north-america
+HU,Hungary,مجارستان,europe
+ID,Indonesia,اندونزی,asia
+IE,Ireland,ایرلند,europe
+IL,Israel,اسرائیل,asia
+IM,Isle of Man,جزیره من,europe
+IN,India,هند,asia
+IO,British Indian Ocean Territory,قلمرو بریتانیا در اقیانوس هند,asia
+IQ,Iraq,عراق,asia
+IR,Iran,ایران,asia
+IS,Iceland,ایسلند,europe
+IT,Italy,ایتالیا,europe
+JE,Jersey,جرزی,europe
+JM,Jamaica,جامائیکا,north-america
+JO,Jordan,اردن,asia
+JP,Japan,ژاپن,asia
+KE,Kenya,کنیا,africa
+KG,Kyrgyzstan,قرقیزستان,asia
+KH,Cambodia,کامبوج,asia
+KI,Kiribati,کیریباتی,oceania
+KM,Comoros,کومور,africa
+KN,Saint Kitts and Nevis,سنت کیتس و نویس,north-america
+KP,Korea (North),کره شمالی,asia
+KR,Korea (South),کره جنوبی,asia
+KW,Kuwait,کویت,asia
+KY,Cayman Islands,جزایر کیمن,north-america
+KZ,Kazakhstan,قزاقستان,asia
+LA,Laos,لائوس,asia
+LB,Lebanon,لبنان,asia
+LC,Saint Lucia,سنت لوسیا,north-america
+LI,Liechtenstein,لیختن اشتاین,europe
+LK,Sri Lanka,سریلانکا,asia
+LR,Liberia,لیبریا,africa
+LS,Lesotho,لسوتو,africa
+LT,Lithuania,لیتوانی,europe
+LU,Luxembourg,لوکزامبورگ,europe
+LV,Latvia,لتونی,europe
+LY,Libya,لیبی,africa
+MA,Morocco,مراکش,africa
+MC,Monaco,موناکو,europe
+MD,Moldova,مولداوی,europe
+ME,Montenegro,مونته‌نگرو,europe
+MF,Saint Martin,سنت مارتن,north-america
+MG,Madagascar,ماداگاسکار,africa
+MH,Marshall Islands,جزایر مارشال,oceania
+MK,F.Y.R.O.M. (Macedonia),مقدونیه شمالی,europe
+ML,Mali,مالی,africa
+MM,Myanmar,میانمار,asia
+MN,Mongolia,مغولستان,asia
+MO,Macau,ماکائو,asia
+MP,Northern Mariana Islands,جزایر ماریانای شمالی,oceania
+MQ,Martinique,مارتینیک,north-america
+MR,Mauritania,موریتانی,africa
+MS,Montserrat,مونتسرات,north-america
+MT,Malta,مالت,europe
+MU,Mauritius,موریس,africa
+MV,Maldives,مالدیو,asia
+MW,Malawi,مالاوی,africa
+MX,Mexico,مکزیک,north-america
+MY,Malaysia,مالزی,asia
+MZ,Mozambique,موزامبیک,africa
+NA,Namibia,نامیبیا,africa
+NC,New Caledonia,کالدونیای جدید,oceania
+NE,Niger,نیجر,africa
+NF,Norfolk Island,جزیره نورفک,oceania
+NG,Nigeria,نیجریه,africa
+NI,Nicaragua,نیکاراگوئه,north-america
+NL,Netherlands,هلند,europe
+NO,Norway,نروژ,europe
+NP,Nepal,نپال,asia
+NR,Nauru,نائورو,oceania
+NU,Niue,نیوئه,oceania
+NZ,New Zealand (Aotearoa),نیوزیلند,oceania
+OM,Oman,عمان,asia
+PA,Panama,پاناما,north-america
+PE,Peru,پرو,south-america
+PF,French Polynesia,پلی‌نزی فرانسه,oceania
+PG,Papua New Guinea,پاپوآ گینه نو,oceania
+PH,Philippines,فیلیپین,asia
+PK,Pakistan,پاکستان,asia
+PL,Poland,لهستان,europe
+PM,St. Pierre and Miquelon,سن پییر و میکلون,north-america
+PN,Pitcairn,پیتکرن,oceania
+PR,Puerto Rico,پورتوریکو,north-america
+PS,"Palestinian Territory, Occupied",سرزمین‌های فلسطین,asia
+PT,Portugal,پرتغال,europe
+PW,Palau,پالائو,oceania
+PY,Paraguay,پاراگوئه,south-america
+QA,Qatar,قطر,asia
+RE,Reunion,رئونیون,africa
+RO,Romania,رومانی,europe
+RS,Serbia,صربستان,europe
+RU,Russian Federation,روسیه,europe/asia
+RW,Rwanda,رواندا,africa
+SA,Saudi Arabia,عربستان سعودی,asia
+SB,Solomon Islands,جزایر سلیمان,oceania
+SC,Seychelles,سیشل,africa
+SD,Sudan,سودان,africa
+SE,Sweden,سوئد,europe
+SG,Singapore,سنگاپور,asia
+SH,St. Helena Island,سنت هلنا,africa
+SI,Slovenia,اسلوونی,europe
+SJ,Svalbard and Jan Mayen,سوالبارد و یان ماین,europe
+SK,Slovakia,اسلواکی,europe
+SL,Sierra Leone,سیرالئون,africa
+SM,San Marino,سان مارینو,europe
+SN,Senegal,سنگال,africa
+SO,Somalia,سومالی,africa
+SR,Suriname,سورینام,south-america
+SS,South Sudan,سودان جنوبی,africa
+ST,Sao Tome and Principe,سائوتومه و پرنسیپ,africa
+SV,El Salvador,السالوادور,north-america
+SX,Sint Maarten,سینت مارتن,north-america
+SY,Syria,سوریه,asia
+SZ,Swaziland,اسواتینی,africa
+TC,Turks and Caicos Islands,جزایر تورکس و کایکوس,north-america
+TD,Chad,چاد,africa
+TF,French Southern Territories,سرزمین‌های جنوبی فرانسه,antarctica
+TG,Togo,توگو,africa
+TH,Thailand,تایلند,asia
+TJ,Tajikistan,تاجیکستان,asia
+TK,Tokelau,توکلائو,oceania
+TL,Timor-Leste,تیمور شرقی,asia
+TM,Turkmenistan,ترکمنستان,asia
+TN,Tunisia,تونس,africa
+TO,Tonga,تونگا,oceania
+TR,Turkey,ترکیه,europe/asia
+TT,Trinidad and Tobago,ترینیداد و توباگو,north-america
+TV,Tuvalu,تووالو,oceania
+TW,Taiwan,تایوان,asia
+TZ,Tanzania,تانزانیا,africa
+UA,Ukraine,اوکراین,europe
+UG,Uganda,اوگاندا,africa
+UM,Midway Islands,جزایر میدوی,oceania
+US,United States,ایالات متحده آمریکا,north-america
+UY,Uruguay,اروگوئه,south-america
+UZ,Uzbekistan,ازبکستان,asia
+VA,Vatican,واتیکان,europe
+VC,Saint Vincent and the Grenadines,سنت وینسنت و گرنادین‌ها,north-america
+VE,Venezuela,ونزوئلا,south-america
+VG,Virgin Islands-British,جزایر ویرجین بریتانیا,north-america
+VI,Virgin Islands-US,جزایر ویرجین ایالات متحده,north-america
+VN,Vietnam,ویتنام,asia
+VU,Vanuatu,وانواتو,oceania
+WF,Wallis and Futuna Islands,والیس و فوتونا,oceania
+WS,Samoa,ساموآ,oceania
+XC,Crimea,کریمه,europe
+YE,Yemen,یمن,asia
+YT,Mayotte,مایوت,africa
+ZA,South africa,آفریقای جنوبی,africa
+ZM,Zambia,زامبیا,africa
+ZW,Zimbabwe,زیمبابوه,africa

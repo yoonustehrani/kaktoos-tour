@@ -1,0 +1,58 @@
+services:
+    app:
+        image: yoonustehrani/kaktoos-tour-backend:latest
+        networks:
+            - kaktoos-tour-network
+        # ports:
+        #   - "8000:8000"
+        volumes:
+          - './storage/app/public:/app/storage/app/public:rw'
+          - './storage/logs:/app/storage/logs:rw'
+        depends_on:
+            - pgsql
+            - redis
+    pgsql:
+        image: 'postgres:17'
+        environment:
+            - PGPASSWORD=password
+            - POSTGRES_DB=laravel
+            - POSTGRES_USER=sail
+            - POSTGRES_PASSWORD=password
+        volumes:
+            - 'pgsql:/var/lib/postgresql/data'
+            - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+        networks:
+            - kaktoos-tour-network
+        healthcheck:
+            test:
+                - CMD
+                - pg_isready
+                - '-q'
+                - '-d'
+                - 'laravel'
+                - '-U'
+                - 'sail'
+            retries: 3
+            timeout: 5s
+    redis:
+        image: 'redis:alpine'
+        volumes:
+            - 'redis:/data'
+        networks:
+            - kaktoos-tour-network
+        healthcheck:
+            test:
+                - CMD
+                - redis-cli
+                - ping
+            retries: 3
+            timeout: 5s
+networks:
+    kaktoos-tour-network:
+        external: true
+
+volumes:
+    pgsql:
+        driver: local
+    redis:
+        driver: local
