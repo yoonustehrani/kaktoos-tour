@@ -50,7 +50,7 @@ COPY .env.production /app/.env
 
 WORKDIR /app
 
-COPY --from=static-builder */app/public/build ./public/build
+COPY --from=static-builder /app/public/build ./public/build
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
