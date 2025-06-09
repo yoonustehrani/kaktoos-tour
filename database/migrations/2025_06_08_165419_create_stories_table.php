@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignUlid('tour_id')->constrained('tours')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUlid('tour_id')->nullable()->constrained('tours')->cascadeOnDelete()->cascadeOnUpdate();
             $table->tinyText('image_src');
             $table->timestamps();
         });

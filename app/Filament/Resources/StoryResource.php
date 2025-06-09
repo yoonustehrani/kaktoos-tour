@@ -33,7 +33,7 @@ class StoryResource extends Resource
                     ->relationship('tour', 'title')
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->nullable(),
                 Forms\Components\FileUpload::make('image_src')
                     ->label('Unique Image')->translateLabel()
                     ->image()->imageEditor()->openable()->moveFiles()

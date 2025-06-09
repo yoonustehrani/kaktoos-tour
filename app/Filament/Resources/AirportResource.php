@@ -37,9 +37,9 @@ class AirportResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('code')->label('IATA')->translateLabel(),
-                Tables\Columns\TextColumn::make('name')->translateLabel(),
-                Tables\Columns\TextColumn::make('name_fa')->translateLabel(),
+                Tables\Columns\TextColumn::make('code')->searchable()->label('IATA')->translateLabel(),
+                Tables\Columns\TextColumn::make('name')->searchable()->translateLabel(),
+                Tables\Columns\TextColumn::make('name_fa')->searchable()->translateLabel(),
                 Tables\Columns\IconColumn::make('is_international')->boolean()->translateLabel(),
                 Tables\Columns\ColumnGroup::make('country', [
                     CoutryImage::make('country_code')->label(''),
