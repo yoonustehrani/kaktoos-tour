@@ -3,32 +3,35 @@ services:
         image: yoonustehrani/kaktoos-tour-backend:latest
         networks:
             - kaktoos-tour-network
-            - sail
-        ports:
-          - "8000:8000"
+        # ports:
+        #   - "8000:8000"
         volumes:
           - './storage/app/public:/app/storage/app/public:rw'
+          - './storage/logs:/app/storage/logs:rw'
+        depends_on:
+            - pgsql
+            - redis
     pgsql:
         image: 'postgres:17'
         environment:
-            PGPASSWORD: '${DB_PASSWORD:-secret}'
-            POSTGRES_DB: '${DB_DATABASE}'
-            POSTGRES_USER: '${DB_USERNAME}'
-            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+            - PGPASSWORD=password
+            - POSTGRES_DB=laravel
+            - POSTGRES_USER=sail
+            - POSTGRES_PASSWORD=password
         volumes:
             - 'pgsql:/var/lib/postgresql/data'
             - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
-            - sail
+            - kaktoos-tour-network
         healthcheck:
             test:
                 - CMD
                 - pg_isready
                 - '-q'
                 - '-d'
-                - '${DB_DATABASE}'
+                - 'laravel'
                 - '-U'
-                - '${DB_USERNAME}'
+                - 'sail'
             retries: 3
             timeout: 5s
     redis:
@@ -36,7 +39,7 @@ services:
         volumes:
             - 'redis:/data'
         networks:
-            - sail
+            - kaktoos-tour-network
         healthcheck:
             test:
                 - CMD
@@ -45,8 +48,6 @@ services:
             retries: 3
             timeout: 5s
 networks:
-    sail:
-        driver: bridge
     kaktoos-tour-network:
         external: true
 
