@@ -3,4 +3,4 @@ id,title,image_src,icon_class,slug
 2,کوهستانی,categories/mountain.webp,,کوهستانی
 3,ساحلی,categories/beach.jpg,,ساحلی
 4,شهری,categories/city.svg,,شهری
-5,برون شهری,categories/country.svg,برون-شهری
+5,برون شهری,categories/country.svg,,برون-شهری
