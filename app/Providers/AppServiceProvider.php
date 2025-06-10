@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +16,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('local') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             // $this->app->register(TelescopeServiceProvider::class);
+        }
+        if ($this->app->environment('production')) {
+            URL::forceSchema('https');
         }
     }
 
