@@ -6,8 +6,9 @@ services:
         # ports:
         #   - "8000:8000"
         volumes:
-          - './storage/app/public:/app/storage/app/public:rw'
-          - './storage/logs:/app/storage/logs:rw'
+            - './storage/app/public:/app/public/storage:ro'
+            - './storage/app/public:/app/storage/app/public:rw'
+            - './storage/logs:/app/storage/logs:rw'
         depends_on:
             - pgsql
             - redis
