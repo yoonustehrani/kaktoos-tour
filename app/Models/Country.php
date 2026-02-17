@@ -34,4 +34,9 @@ class Country extends Model
     public $timestamps = false;
 
     protected $fillable = ['code', 'name', 'name_fa'];
+
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }

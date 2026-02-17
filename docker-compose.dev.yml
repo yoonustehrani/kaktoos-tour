@@ -1,5 +1,5 @@
 services:
-    tour-app:
+    laravel:
         build:
             context: './vendor/laravel/sail/runtimes/8.4'
             dockerfile: Dockerfile
@@ -20,7 +20,8 @@ services:
         volumes:
             - '.:/var/www/html'
         networks:
-            - sail
+            - laravel-network
+            - kaktoos-tour-network
         depends_on:
             - pgsql
             - redis
@@ -35,7 +36,7 @@ services:
             - 'tour-app-pgsql:/var/lib/postgresql/data'
             - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
-            - sail
+            - laravel-network
         healthcheck:
             test:
                 - CMD
@@ -47,12 +48,12 @@ services:
                 - '${DB_USERNAME}'
             retries: 3
             timeout: 5s
-    tour-redis:
+    redis:
         image: 'redis:alpine'
         volumes:
             - 'tour-app-redis:/data'
         networks:
-            - sail
+            - laravel-network
         healthcheck:
             test:
                 - CMD
@@ -60,9 +61,9 @@ services:
                 - ping
             retries: 3
             timeout: 5s
-# networks:
-#     sail:
-#         driver: bridge
+networks:
+    laravel-network:
+        driver: bridge
 volumes:
     tour-app-pgsql:
         driver: local

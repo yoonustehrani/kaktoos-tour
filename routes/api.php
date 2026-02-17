@@ -21,3 +21,4 @@ Route::get('tours/{id}/details', Controllers\TourDetailsController::class);
 Route::get('tours/{tourId}/dates/{dateId}/journey', Controllers\TourDateJourneyController::class);
 
 Route::get('categories', Controllers\CategoryListController::class);
+Route::get('countries', [Controllers\CountryController::class, 'index']);

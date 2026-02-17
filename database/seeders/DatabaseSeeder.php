@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LocationSeeder::class);
         $this->call(HolidaySeeder::class);
         $this->call(ClassificationSeeder::class);
-        // $this->call(LocationSeeder::class);
         // $this->call(TourSeeder::class);
     }
 }

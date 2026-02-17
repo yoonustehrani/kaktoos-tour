@@ -28,7 +28,8 @@ class TourFactory extends Factory
         return $this->state([
             'title' => $title,
             'slug' => str_ireplace(' ', '-', $title),
-            'published_at' => now()
+            'published_at' => now(),
+            'image_src' => '/images/seeder/' . random_int(1, 5) . '.jpg'
         ]);
     }
 }

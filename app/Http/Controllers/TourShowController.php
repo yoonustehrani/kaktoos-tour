@@ -12,8 +12,6 @@ class TourShowController extends Controller
      */
     public function __invoke(Request $request, string $id)
     {
-        return response()->json(
-            Tour::whereId($id)->firstOrFail()
-        );
+        return response()->json(Tour::whereId($id)->firstOrFail()->toArray());
     }
 }
